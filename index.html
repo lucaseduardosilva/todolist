@@ -7,6 +7,40 @@
 <meta name="description" content="To-Do List completa com todas as funcionalidades">
 <title>TaskFlow — Sua Lista de Tarefas</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
+
+<!-- Cross-platform emoji rendering: Apple keeps Apple Color Emoji (system).
+     Windows / Android / Linux load Noto Color Emoji webfont so all emojis
+     (including country flags) render in color and consistently. -->
+<script>
+(function loadEmojiFont() {
+  try {
+    var ua = navigator.userAgent || '';
+    var platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+    var isApple = /Mac|iPhone|iPad|iPod/i.test(platform) ||
+                  /iPhone|iPad|iPod|Macintosh/i.test(ua) ||
+                  /Apple/i.test(ua);
+    document.documentElement.classList.add(isApple ? 'platform-apple' : 'platform-other');
+    if (!isApple) {
+      // Preconnect for faster font load
+      var p1 = document.createElement('link');
+      p1.rel = 'preconnect';
+      p1.href = 'https://fonts.googleapis.com';
+      document.head.appendChild(p1);
+      var p2 = document.createElement('link');
+      p2.rel = 'preconnect';
+      p2.href = 'https://fonts.gstatic.com';
+      p2.crossOrigin = 'anonymous';
+      document.head.appendChild(p2);
+      // Noto Color Emoji — covers all Unicode emojis incl. flags, in color
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap';
+      document.head.appendChild(link);
+    }
+  } catch (e) {}
+})();
+</script>
+
 <style>
 :root {
   --red-50: #fef2f2;
@@ -86,7 +120,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Twemoji Mozilla', 'EmojiOne Color', 'Android Emoji', emoji;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Noto Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Twemoji Mozilla', 'EmojiOne Color', 'Android Emoji', emoji;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -114,8 +148,30 @@ body {
 .settings-item-icon,
 .bottom-nav button .nav-icon,
 .logo-icon {
-  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Twemoji Mozilla', 'EmojiOne Color', 'Android Emoji', emoji, sans-serif;
+  font-family: 'Apple Color Emoji', 'Noto Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Twemoji Mozilla', 'EmojiOne Color', 'Android Emoji', emoji, sans-serif;
   font-variant-emoji: emoji;
+}
+
+/* On non-Apple platforms, ensure Noto Color Emoji wins over the OS-level
+   emoji font (Segoe UI Emoji / Android Emoji) — that's how flags and
+   newer emojis render correctly. Apple is unchanged. */
+.platform-other body,
+.platform-other .emoji,
+.platform-other .icon-option,
+.platform-other .icon-picker-icon,
+.platform-other .streak-icon,
+.platform-other .empty-state-icon,
+.platform-other .toast-icon,
+.platform-other .confirm-icon,
+.platform-other .cmdk-item-icon,
+.platform-other .settings-item-icon,
+.platform-other .bottom-nav button .nav-icon,
+.platform-other .logo-icon {
+  font-family: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Twemoji Mozilla', emoji, sans-serif;
+}
+
+.platform-other body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Helvetica Neue', Arial, sans-serif, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Twemoji Mozilla', emoji;
 }
 
 button, input, textarea, select {
@@ -7713,13 +7769,40 @@ function setupEventListeners() {
   });
 
   document.getElementById('clearAllBtn').addEventListener('click', () => {
-    confirmDialog('Apagar tudo?', 'Todas as tarefas e dados serão excluídos.', () => {
+    confirmDialog('Apagar tudo?', 'Todas as tarefas, categorias, karma, histórico, pomodoro e estatísticas serão excluídos. Suas preferências (tema, sons) serão mantidas.', () => {
+      // Tasks, categories
       state.tasks = [];
       state.categories = [...DEFAULT_CATEGORIES];
+      // Streak
       state.streak = { current: 0, record: 0, lastDate: null };
+      // Karma
+      state.karma = { points: 0, level: 0, completedTotal: 0 };
+      // Pomodoro stats (keep configuration like durations)
+      state.pomodoro.completedToday = 0;
+      state.pomodoro.completedTotal = 0;
+      state.pomodoro.cyclePosition = 0;
+      state.pomodoro.streak = 0;
+      state.pomodoro.streakLastDate = null;
+      // Activity log
+      state.activity = [];
+      // Transient state
+      state.selectedTasks.clear();
+      state.editingTaskId = null;
+      state.selectedCalendarDate = null;
+      kbFocusedId = null;
+      // Persist
       persistTasks();
       persistCategories();
       persistStreak();
+      save(STORAGE_KEYS.KARMA, state.karma);
+      persistPomodoro();
+      save(STORAGE_KEYS.ACTIVITY, state.activity);
+      // Reset Pomodoro display if open
+      if (typeof setPomodoroMode === 'function') {
+        pausePomodoro();
+        setPomodoroMode('focus');
+      }
+      updateBulkUI();
       render();
       toast('Tudo apagado', '', 'info');
     });
