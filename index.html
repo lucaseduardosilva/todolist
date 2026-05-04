@@ -1144,9 +1144,218 @@ textarea {
 }
 
 /* Pomodoro */
+.pomo-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-input);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+
+.pomo-tab {
+  flex: 1;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.pomo-tab:hover { color: var(--primary); }
+
+.pomo-tab.active {
+  background: var(--bg-card);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+
+.pomodoro-circle .pomodoro-time {
+  margin-bottom: 0.25rem;
+}
+
+.pomodoro-cycle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.pomo-quick-presets {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+  justify-content: center;
+}
+
+.pomo-quick-presets .pill {
+  flex: 0 0 auto;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8125rem;
+  min-width: 60px;
+}
+
+.pomo-custom {
+  margin-bottom: 1rem;
+}
+
+.pomo-custom-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pomo-custom-row input[type="number"] {
+  flex: 1;
+  font-size: 0.875rem;
+  padding: 0.4rem 0.625rem;
+}
+
+.pomo-goal {
+  background: var(--bg-input);
+  border-radius: var(--radius-sm);
+  padding: 0.625rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pomo-goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pomo-settings {
+  background: var(--bg-input);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.pomo-settings summary {
+  padding: 0.625rem 0.875rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  list-style: none;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pomo-settings summary::-webkit-details-marker { display: none; }
+
+.pomo-settings summary::after {
+  content: '▾';
+  color: var(--text-muted);
+  transition: transform var(--transition);
+}
+
+.pomo-settings[open] summary::after { transform: rotate(180deg); }
+
+.pomo-settings-body {
+  padding: 0 0.875rem 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pomo-setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+  gap: 0.5rem;
+}
+
+.pomo-setting > label:not(.switch) {
+  flex: 1;
+  font-weight: 500;
+}
+
+.pomo-setting .switch {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 24px;
+}
+
+.pomo-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2px 0.5rem;
+}
+
+.pomo-input-wrap input {
+  width: 50px;
+  border: none;
+  background: transparent;
+  padding: 0.25rem 0;
+  text-align: right;
+  font-size: 0.875rem;
+}
+
+.pomo-input-wrap input:focus { box-shadow: none; }
+
+.pomo-input-wrap span {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.pomo-setting.toggle {
+  align-items: center;
+}
+
+.pomo-setting.toggle label:first-child {
+  font-weight: 500;
+}
+
+/* Mode-aware styling */
+.pomodoro-display.mode-focus .pomodoro-time { color: var(--primary); }
+.pomodoro-display.mode-short-break .pomodoro-time { color: #10b981; }
+.pomodoro-display.mode-long-break .pomodoro-time { color: #3b82f6; }
+
+.pomodoro-display.mode-focus .progress-circle { stroke: url(#gradient); }
+.pomodoro-display.mode-short-break .progress-circle { stroke: url(#gradientBreak); }
+.pomodoro-display.mode-long-break .progress-circle { stroke: url(#gradientLong); }
+
+.pomodoro-display.mode-focus .pomodoro-time {
+  background: linear-gradient(135deg, var(--red-500), var(--red-700));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pomodoro-display.mode-short-break .pomodoro-time {
+  background: linear-gradient(135deg, #34d399, #0d9488);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pomodoro-display.mode-long-break .pomodoro-time {
+  background: linear-gradient(135deg, #60a5fa, #1d4ed8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pomodoro-display.running .pomodoro-circle {
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
 .pomodoro-display {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem 1rem;
 }
 
 .pomodoro-time {
@@ -2010,9 +2219,14 @@ body.bulk-mode .task-item .task-checkbox {
   color: var(--text-muted);
 }
 
-#cmdkBackdrop {
+#cmdkModal {
   align-items: flex-start;
   padding-top: 10vh;
+}
+
+.cmdk-header,
+.cmdk-results {
+  width: 100%;
 }
 
 /* Comments */
@@ -2043,6 +2257,100 @@ body.bulk-mode .task-item .task-checkbox {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.5rem;
+}
+
+/* Icon picker */
+.icon-picker { position: relative; }
+
+.icon-picker-current {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.icon-picker-current:hover {
+  border-color: var(--primary);
+}
+
+.icon-picker-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.icon-picker-arrow {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  transition: transform var(--transition);
+}
+
+.icon-picker.open .icon-picker-arrow {
+  transform: rotate(180deg);
+}
+
+.icon-picker-panel {
+  margin-top: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  box-shadow: var(--shadow);
+  animation: slideIn 0.15s ease;
+}
+
+.icon-picker-search {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.icon-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 2px;
+}
+
+.icon-picker-grid::-webkit-scrollbar { width: 6px; }
+
+.icon-option {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  line-height: 1;
+}
+
+.icon-option:hover {
+  background: var(--bg-hover);
+  border-color: var(--border);
+}
+
+.icon-option.selected {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+
+.icon-picker-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  padding: 1rem;
 }
 
 /* Inline form (used inside settings) */
@@ -2646,8 +2954,17 @@ kbd {
           <div class="color-picker" id="colorPicker"></div>
         </div>
         <div class="form-group">
-          <label class="form-label" for="categoryIcon">Ícone</label>
-          <input type="text" id="categoryIcon" maxlength="2" placeholder="Ex: 💼" />
+          <label class="form-label">Ícone</label>
+          <div class="icon-picker" data-target="modal">
+            <button type="button" class="icon-picker-current" id="categoryIconBtn" title="Clique para escolher">
+              <span class="icon-picker-icon" id="categoryIconDisplay">📌</span>
+              <span class="icon-picker-arrow">▾</span>
+            </button>
+            <div class="icon-picker-panel" id="categoryIconPanel" style="display:none">
+              <input type="text" class="icon-picker-search" id="modalIconSearch" placeholder="Buscar ícone..." autocomplete="off" />
+              <div class="icon-picker-grid" id="modalIconGrid"></div>
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -2741,7 +3058,16 @@ kbd {
           </div>
           <div class="form-group" style="margin-bottom:0.75rem">
             <label class="form-label" style="margin-bottom:0.25rem">Ícone</label>
-            <input type="text" id="inlineCategoryIcon" placeholder="Ex: 💼" maxlength="4" />
+            <div class="icon-picker" data-target="inline">
+              <button type="button" class="icon-picker-current" id="inlineCategoryIconBtn" title="Clique para escolher">
+                <span class="icon-picker-icon" id="inlineCategoryIconDisplay">📌</span>
+                <span class="icon-picker-arrow">▾</span>
+              </button>
+              <div class="icon-picker-panel" id="inlineCategoryIconPanel" style="display:none">
+                <input type="text" class="icon-picker-search" id="inlineIconSearch" placeholder="Buscar ícone..." autocomplete="off" />
+                <div class="icon-picker-grid" id="inlineIconGrid"></div>
+              </div>
+            </div>
           </div>
           <div style="display:flex;gap:0.5rem">
             <button type="button" class="btn btn-secondary" id="inlineCategoryCancel" style="flex:1">Cancelar</button>
@@ -2853,20 +3179,34 @@ kbd {
 
 <!-- Modal: Pomodoro -->
 <div class="modal-backdrop" id="pomodoroModal">
-  <div class="modal" style="max-width:400px">
+  <div class="modal" style="max-width:440px">
     <div class="modal-handle"></div>
     <div class="modal-header">
       <h3 class="modal-title">🍅 Pomodoro</h3>
       <button class="modal-close" data-close-modal>×</button>
     </div>
     <div class="modal-body">
+      <div class="pomo-tabs" role="tablist">
+        <button class="pomo-tab active" data-mode="focus">🎯 Foco</button>
+        <button class="pomo-tab" data-mode="short-break">☕ Pausa curta</button>
+        <button class="pomo-tab" data-mode="long-break">🌴 Pausa longa</button>
+      </div>
+
       <div class="pomodoro-display">
-        <div class="pomodoro-circle">
+        <div class="pomodoro-circle" id="pomodoroCircleWrapper">
           <svg viewBox="0 0 200 200">
             <defs>
               <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#f87171"/>
                 <stop offset="100%" stop-color="#b91c1c"/>
+              </linearGradient>
+              <linearGradient id="gradientBreak" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#34d399"/>
+                <stop offset="100%" stop-color="#0d9488"/>
+              </linearGradient>
+              <linearGradient id="gradientLong" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#60a5fa"/>
+                <stop offset="100%" stop-color="#1d4ed8"/>
               </linearGradient>
             </defs>
             <circle class="bg-circle" cx="100" cy="100" r="90"/>
@@ -2875,29 +3215,112 @@ kbd {
           <div class="pomodoro-circle-text">
             <div class="pomodoro-time" id="pomodoroTime">25:00</div>
             <div class="pomodoro-status" id="pomodoroStatus">Foco</div>
+            <div class="pomodoro-cycle" id="pomodoroCycle"></div>
           </div>
         </div>
 
         <div class="pomodoro-controls">
-          <button class="btn btn-primary" id="pomoStartBtn">▶️ Iniciar</button>
-          <button class="btn btn-secondary" id="pomoResetBtn">↻ Resetar</button>
+          <button class="btn btn-primary" id="pomoStartBtn">▶ Iniciar</button>
+          <button class="btn btn-secondary" id="pomoSkipBtn" title="Pular para próximo">⏭</button>
+          <button class="btn btn-secondary" id="pomoResetBtn" title="Resetar">↻</button>
         </div>
+      </div>
 
-        <div class="pomodoro-presets">
-          <button class="pill active" data-pomo="25">25 min</button>
-          <button class="pill" data-pomo="15">15 min</button>
-          <button class="pill" data-pomo="5">5 min</button>
+      <div class="pomo-quick-presets" id="pomoQuickPresets"></div>
+
+      <div class="pomo-custom">
+        <div class="pomo-custom-row">
+          <input type="number" id="pomoCustomMin" min="1" max="120" placeholder="Tempo personalizado" />
+          <span style="color:var(--text-muted);font-size:0.8125rem">min</span>
+          <button type="button" class="btn btn-secondary" id="pomoCustomApply" style="padding:0.4rem 0.75rem;font-size:0.8125rem">Aplicar</button>
         </div>
+      </div>
 
-        <div class="pomo-stats">
-          <div class="pomo-stat">
-            <div class="pomo-stat-value" id="pomoTodayCount">0</div>
-            <div class="pomo-stat-label">Hoje</div>
+      <div class="pomo-goal" id="pomoGoalSection" style="display:none">
+        <div class="pomo-goal-header">
+          <span style="font-size:0.875rem;font-weight:600">📅 Meta de hoje</span>
+          <span id="pomoGoalText" style="font-size:0.8125rem;color:var(--text-soft)"></span>
+        </div>
+        <div class="progress-bar" style="height:6px;margin-top:6px">
+          <div class="progress-bar-fill" id="pomoGoalProgress" style="width:0%"></div>
+        </div>
+      </div>
+
+      <details class="pomo-settings">
+        <summary>⚙️ Configurações</summary>
+        <div class="pomo-settings-body">
+          <div class="pomo-setting">
+            <label>🎯 Tempo de foco</label>
+            <div class="pomo-input-wrap">
+              <input type="number" id="pomoFocusDuration" min="1" max="120" />
+              <span>min</span>
+            </div>
           </div>
-          <div class="pomo-stat">
-            <div class="pomo-stat-value" id="pomoTotalCount">0</div>
-            <div class="pomo-stat-label">Total</div>
+          <div class="pomo-setting">
+            <label>☕ Pausa curta</label>
+            <div class="pomo-input-wrap">
+              <input type="number" id="pomoShortDuration" min="1" max="60" />
+              <span>min</span>
+            </div>
           </div>
+          <div class="pomo-setting">
+            <label>🌴 Pausa longa</label>
+            <div class="pomo-input-wrap">
+              <input type="number" id="pomoLongDuration" min="1" max="120" />
+              <span>min</span>
+            </div>
+          </div>
+          <div class="pomo-setting">
+            <label>🔁 Pomodoros até pausa longa</label>
+            <div class="pomo-input-wrap">
+              <input type="number" id="pomoLongInterval" min="2" max="12" />
+              <span>×</span>
+            </div>
+          </div>
+          <div class="pomo-setting">
+            <label>🏆 Meta diária</label>
+            <div class="pomo-input-wrap">
+              <input type="number" id="pomoDailyGoal" min="0" max="50" />
+              <span>pomos</span>
+            </div>
+          </div>
+          <div class="pomo-setting toggle">
+            <label>♻️ Ciclo automático <small style="color:var(--text-muted);font-weight:normal">(troca foco/pausa)</small></label>
+            <label class="switch">
+              <input type="checkbox" id="pomoAutoCycle" />
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="pomo-setting toggle">
+            <label>▶ Auto-iniciar próximo</label>
+            <label class="switch">
+              <input type="checkbox" id="pomoAutoStart" />
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="pomo-setting toggle">
+            <label>🔔 Som ao completar</label>
+            <label class="switch">
+              <input type="checkbox" id="pomoSoundEnabled" />
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <button type="button" class="btn btn-secondary btn-block" id="pomoResetSettings" style="margin-top:0.5rem;font-size:0.8125rem">Restaurar padrões</button>
+        </div>
+      </details>
+
+      <div class="pomo-stats">
+        <div class="pomo-stat">
+          <div class="pomo-stat-value" id="pomoTodayCount">0</div>
+          <div class="pomo-stat-label">Hoje</div>
+        </div>
+        <div class="pomo-stat">
+          <div class="pomo-stat-value" id="pomoTotalCount">0</div>
+          <div class="pomo-stat-label">Total</div>
+        </div>
+        <div class="pomo-stat">
+          <div class="pomo-stat-value" id="pomoStreakCount">0</div>
+          <div class="pomo-stat-label">Sequência</div>
         </div>
       </div>
     </div>
@@ -3032,6 +3455,1205 @@ const DEFAULT_CATEGORIES = [
 
 const COLORS = ['#dc2626', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#6b7280'];
 
+const ICON_LIBRARY = [
+  // Rostos / smileys
+  { icon: '😀', kw: 'feliz happy sorriso smile rosto face' },
+  { icon: '😃', kw: 'feliz happy sorriso smile rosto' },
+  { icon: '😄', kw: 'feliz happy sorriso grinning' },
+  { icon: '😁', kw: 'feliz happy beaming sorriso' },
+  { icon: '😆', kw: 'rindo laughing risada satisfeito' },
+  { icon: '😅', kw: 'rindo suor laughing sweat' },
+  { icon: '🤣', kw: 'rindo rolling rofl risada' },
+  { icon: '😂', kw: 'lágrimas rindo laughing tears chorando' },
+  { icon: '🙂', kw: 'sorriso ligeiro slight smile' },
+  { icon: '🙃', kw: 'cabeça baixo upside flip' },
+  { icon: '😉', kw: 'piscando wink olho' },
+  { icon: '😊', kw: 'sorriso corado blushing happy' },
+  { icon: '😇', kw: 'anjo angel halo aureola santo' },
+  { icon: '🥰', kw: 'apaixonado love coração amor' },
+  { icon: '😍', kw: 'apaixonado heart eyes amor' },
+  { icon: '🤩', kw: 'estrelas star struck deslumbrado' },
+  { icon: '😘', kw: 'beijo kiss amor' },
+  { icon: '😗', kw: 'beijo kiss bocudo' },
+  { icon: '😚', kw: 'beijo kiss fechado' },
+  { icon: '😙', kw: 'beijo kiss sorriso' },
+  { icon: '🥲', kw: 'lágrima sorriso smiling tear' },
+  { icon: '😋', kw: 'gostoso yummy delicioso saboroso' },
+  { icon: '😛', kw: 'língua tongue brincalhão' },
+  { icon: '😜', kw: 'língua piscando tongue wink' },
+  { icon: '🤪', kw: 'maluco zany doido' },
+  { icon: '😝', kw: 'língua olhos fechados tongue closed' },
+  { icon: '🤑', kw: 'dinheiro money mouth rico' },
+  { icon: '🤗', kw: 'abraço hugging hug' },
+  { icon: '🤭', kw: 'risadinha hand mouth' },
+  { icon: '🤫', kw: 'silêncio shush quiet' },
+  { icon: '🤔', kw: 'pensando thinking pensativo' },
+  { icon: '🤐', kw: 'boca fechada zipper mouth' },
+  { icon: '🤨', kw: 'sobrancelha raised eyebrow desconfiado' },
+  { icon: '😐', kw: 'neutro neutral indiferente' },
+  { icon: '😑', kw: 'expressionless sem expressão' },
+  { icon: '😶', kw: 'sem boca no mouth' },
+  { icon: '😏', kw: 'sorriso malicioso smirking' },
+  { icon: '😒', kw: 'desconfiado unamused chateado' },
+  { icon: '🙄', kw: 'olhos rolling eyes' },
+  { icon: '😬', kw: 'careta grimacing constrangido' },
+  { icon: '🤥', kw: 'mentira lying nariz longo' },
+  { icon: '😌', kw: 'aliviado relieved relaxado' },
+  { icon: '😔', kw: 'pensativo pensive triste' },
+  { icon: '😪', kw: 'sonolento sleepy cansado' },
+  { icon: '🤤', kw: 'baba drooling salivando' },
+  { icon: '😴', kw: 'dormindo sleeping zzz' },
+  { icon: '😷', kw: 'máscara mask doente sick' },
+  { icon: '🤒', kw: 'doente sick febre fever' },
+  { icon: '🤕', kw: 'machucado injured bandagem' },
+  { icon: '🤢', kw: 'enojado nauseated nojo' },
+  { icon: '🤮', kw: 'vomitando vomiting passando mal' },
+  { icon: '🤧', kw: 'espirrando sneezing resfriado' },
+  { icon: '🥵', kw: 'calor hot suando' },
+  { icon: '🥶', kw: 'frio cold congelando' },
+  { icon: '🥴', kw: 'tonto woozy bêbado' },
+  { icon: '😵', kw: 'tonto dizzy desmaiado' },
+  { icon: '🤯', kw: 'mente explodida exploding head' },
+  { icon: '🤠', kw: 'cowboy chapéu hat' },
+  { icon: '🥳', kw: 'festa party balão' },
+  { icon: '🥸', kw: 'disfarce disguised óculos' },
+  { icon: '😎', kw: 'legal cool óculos sunglasses' },
+  { icon: '🤓', kw: 'nerd óculos geek' },
+  { icon: '🧐', kw: 'monóculo monocle inspetor' },
+  { icon: '😕', kw: 'confuso confused dúvida' },
+  { icon: '😟', kw: 'preocupado worried' },
+  { icon: '🙁', kw: 'frown triste leve' },
+  { icon: '☹️', kw: 'triste frowning' },
+  { icon: '😮', kw: 'surpreso open mouth boca aberta' },
+  { icon: '😯', kw: 'hushed surpreso' },
+  { icon: '😲', kw: 'surpreso astonished chocado' },
+  { icon: '😳', kw: 'corado flushed envergonhado' },
+  { icon: '🥺', kw: 'pleading suplicando carinha' },
+  { icon: '😦', kw: 'frowning open boca' },
+  { icon: '😧', kw: 'angustiado anguished' },
+  { icon: '😨', kw: 'medo fearful assustado' },
+  { icon: '😰', kw: 'ansioso anxious suor' },
+  { icon: '😥', kw: 'aliviado triste suor' },
+  { icon: '😢', kw: 'chorando crying lágrima' },
+  { icon: '😭', kw: 'chorando alto loudly crying' },
+  { icon: '😱', kw: 'gritando screaming pavor scream' },
+  { icon: '😖', kw: 'confuso confounded irritado' },
+  { icon: '😣', kw: 'persistent perseverando' },
+  { icon: '😞', kw: 'desapontado disappointed' },
+  { icon: '😓', kw: 'cansado downcast suor' },
+  { icon: '😩', kw: 'cansado weary exausto' },
+  { icon: '😫', kw: 'cansado tired cabeça baixo' },
+  { icon: '🥱', kw: 'bocejando yawning sono' },
+  { icon: '😤', kw: 'fumaça nariz huffing irritado' },
+  { icon: '😡', kw: 'raiva angry pouting' },
+  { icon: '😠', kw: 'bravo angry irritado' },
+  { icon: '🤬', kw: 'palavrão cursing símbolos' },
+  { icon: '😈', kw: 'diabinho devil sorrindo' },
+  { icon: '👿', kw: 'diabo angry imp' },
+  { icon: '💀', kw: 'caveira skull morte' },
+  { icon: '☠️', kw: 'caveira ossos morte death' },
+  { icon: '💩', kw: 'cocô poop merda' },
+  { icon: '🤡', kw: 'palhaço clown' },
+  { icon: '👹', kw: 'ogro ogre japonês' },
+  { icon: '👺', kw: 'goblin japonês' },
+  { icon: '👻', kw: 'fantasma ghost halloween' },
+  { icon: '👽', kw: 'alien et' },
+  { icon: '👾', kw: 'monstro space invader' },
+  { icon: '🤖', kw: 'robô robot' },
+  // Gatos faces
+  { icon: '😺', kw: 'gato sorriso cat smile' },
+  { icon: '😸', kw: 'gato beaming cat' },
+  { icon: '😹', kw: 'gato lágrimas cat tears' },
+  { icon: '😻', kw: 'gato apaixonado cat heart' },
+  { icon: '😼', kw: 'gato malicioso cat smirk' },
+  { icon: '😽', kw: 'gato beijo cat kiss' },
+  { icon: '🙀', kw: 'gato chocado cat scream' },
+  { icon: '😿', kw: 'gato chorando cat crying' },
+  { icon: '😾', kw: 'gato bravo cat pouting' },
+  // Mãos / gestos
+  { icon: '👋', kw: 'tchau wave acenando' },
+  { icon: '🤚', kw: 'mão levantada raised back' },
+  { icon: '🖐️', kw: 'mão dedos abertos hand' },
+  { icon: '✋', kw: 'mão hand stop' },
+  { icon: '🖖', kw: 'vulcano spock' },
+  { icon: '👌', kw: 'ok ótimo perfeito' },
+  { icon: '🤌', kw: 'pinched fingers italiano' },
+  { icon: '🤏', kw: 'pequeno pinching' },
+  { icon: '✌️', kw: 'paz vitória peace victory' },
+  { icon: '🤞', kw: 'dedos cruzados crossed fingers' },
+  { icon: '🤟', kw: 'amor love rock' },
+  { icon: '🤘', kw: 'rock metal chifres' },
+  { icon: '🤙', kw: 'me liga call shaka' },
+  { icon: '👈', kw: 'esquerda left aponta' },
+  { icon: '👉', kw: 'direita right aponta' },
+  { icon: '👆', kw: 'cima up aponta' },
+  { icon: '🖕', kw: 'dedo médio middle' },
+  { icon: '👇', kw: 'baixo down aponta' },
+  { icon: '☝️', kw: 'indicador up' },
+  { icon: '👍', kw: 'joia thumbs up curtir like' },
+  { icon: '👎', kw: 'thumbs down dislike' },
+  { icon: '✊', kw: 'punho fechado fist' },
+  { icon: '👊', kw: 'soco punch' },
+  { icon: '🤛', kw: 'punho esquerdo fist left' },
+  { icon: '🤜', kw: 'punho direito fist right' },
+  { icon: '👏', kw: 'palmas clapping aplauso' },
+  { icon: '🙌', kw: 'mãos para cima raising hands' },
+  { icon: '👐', kw: 'mãos abertas open hands' },
+  { icon: '🤲', kw: 'palmas juntas palms up' },
+  { icon: '🤝', kw: 'aperto handshake reunião acordo' },
+  { icon: '🙏', kw: 'oração praying obrigado por favor' },
+  // Partes do corpo
+  { icon: '💪', kw: 'músculo muscle força academia gym' },
+  { icon: '🦾', kw: 'braço mecânico mechanical arm' },
+  { icon: '🦿', kw: 'perna mecânica mechanical leg' },
+  { icon: '🦵', kw: 'perna leg' },
+  { icon: '🦶', kw: 'pé foot' },
+  { icon: '👂', kw: 'orelha ear' },
+  { icon: '🦻', kw: 'orelha audição hearing' },
+  { icon: '👃', kw: 'nariz nose' },
+  { icon: '🧠', kw: 'cérebro brain mente' },
+  { icon: '🫀', kw: 'coração órgão heart organ' },
+  { icon: '🫁', kw: 'pulmões lungs' },
+  { icon: '🦷', kw: 'dente tooth' },
+  { icon: '🦴', kw: 'osso bone' },
+  { icon: '👀', kw: 'olhos eyes' },
+  { icon: '👁️', kw: 'olho eye' },
+  { icon: '👅', kw: 'língua tongue' },
+  { icon: '👄', kw: 'boca mouth lábios lips' },
+  // Pessoas
+  { icon: '👶', kw: 'bebê baby' },
+  { icon: '🧒', kw: 'criança child' },
+  { icon: '👦', kw: 'menino boy' },
+  { icon: '👧', kw: 'menina girl' },
+  { icon: '🧑', kw: 'pessoa person' },
+  { icon: '👨', kw: 'homem man' },
+  { icon: '👩', kw: 'mulher woman' },
+  { icon: '🧓', kw: 'idoso older person' },
+  { icon: '👴', kw: 'velho old man avô' },
+  { icon: '👵', kw: 'velha old woman avó' },
+  { icon: '👨‍🍳', kw: 'cozinheiro chef cook' },
+  { icon: '👩‍🍳', kw: 'cozinheira chef cook' },
+  { icon: '👨‍⚕️', kw: 'médico doctor health' },
+  { icon: '👩‍⚕️', kw: 'médica doctor health' },
+  { icon: '👨‍🎓', kw: 'estudante graduate' },
+  { icon: '👩‍🎓', kw: 'estudante graduate' },
+  { icon: '👨‍🏫', kw: 'professor teacher' },
+  { icon: '👩‍🏫', kw: 'professora teacher' },
+  { icon: '👨‍💻', kw: 'programador developer technologist' },
+  { icon: '👩‍💻', kw: 'programadora developer' },
+  { icon: '👨‍🚀', kw: 'astronauta astronaut' },
+  { icon: '👩‍🚀', kw: 'astronauta astronaut' },
+  { icon: '👨‍🚒', kw: 'bombeiro firefighter' },
+  { icon: '👩‍🚒', kw: 'bombeira firefighter' },
+  { icon: '👮', kw: 'policial police' },
+  { icon: '🕵️', kw: 'detetive detective' },
+  { icon: '👷', kw: 'construção construction worker' },
+  { icon: '💂', kw: 'guarda guard' },
+  { icon: '🥷', kw: 'ninja' },
+  { icon: '🤴', kw: 'príncipe prince' },
+  { icon: '👸', kw: 'princesa princess' },
+  { icon: '👰', kw: 'noiva bride véu' },
+  { icon: '🤵', kw: 'noivo groom smoking' },
+  { icon: '👼', kw: 'anjo bebê angel baby' },
+  { icon: '🤰', kw: 'grávida pregnant' },
+  { icon: '🤱', kw: 'amamentando breast feeding' },
+  { icon: '👨‍👩‍👧', kw: 'família family' },
+  { icon: '👨‍👩‍👦', kw: 'família family menino' },
+  { icon: '🧑‍🎤', kw: 'cantor singer' },
+  { icon: '🧑‍🎨', kw: 'artista artist' },
+  { icon: '🧑‍✈️', kw: 'piloto pilot' },
+  // Profissões / atividades adicionais
+  { icon: '🧙', kw: 'mago wizard' },
+  { icon: '🧚', kw: 'fada fairy' },
+  { icon: '🧛', kw: 'vampiro vampire' },
+  { icon: '🧜', kw: 'sereia mermaid' },
+  { icon: '🧝', kw: 'elfo elf' },
+  { icon: '🧞', kw: 'gênio genie' },
+  { icon: '🧟', kw: 'zumbi zombie' },
+  // Animais mamíferos
+  { icon: '🐶', kw: 'cachorro dog filhote pet' },
+  { icon: '🐕', kw: 'cachorro dog' },
+  { icon: '🦮', kw: 'cão guia guide dog' },
+  { icon: '🐩', kw: 'poodle' },
+  { icon: '🐺', kw: 'lobo wolf' },
+  { icon: '🦊', kw: 'raposa fox' },
+  { icon: '🦝', kw: 'guaxinim raccoon' },
+  { icon: '🐱', kw: 'gato cat pet filhote' },
+  { icon: '🐈', kw: 'gato cat' },
+  { icon: '🦁', kw: 'leão lion' },
+  { icon: '🐯', kw: 'tigre tiger' },
+  { icon: '🐅', kw: 'tigre tiger' },
+  { icon: '🐆', kw: 'leopardo leopard' },
+  { icon: '🐴', kw: 'cavalo horse' },
+  { icon: '🐎', kw: 'cavalo horse correndo' },
+  { icon: '🦄', kw: 'unicórnio unicorn' },
+  { icon: '🦓', kw: 'zebra' },
+  { icon: '🦌', kw: 'cervo veado deer' },
+  { icon: '🐮', kw: 'vaca cow' },
+  { icon: '🐂', kw: 'touro bull boi' },
+  { icon: '🐃', kw: 'búfalo buffalo' },
+  { icon: '🐄', kw: 'vaca cow' },
+  { icon: '🐷', kw: 'porco pig' },
+  { icon: '🐖', kw: 'porco pig' },
+  { icon: '🐗', kw: 'javali boar' },
+  { icon: '🐽', kw: 'focinho pig nose' },
+  { icon: '🐏', kw: 'carneiro ram' },
+  { icon: '🐑', kw: 'ovelha sheep' },
+  { icon: '🐐', kw: 'cabra goat' },
+  { icon: '🐪', kw: 'camelo camel' },
+  { icon: '🐫', kw: 'camelo dois corcovas' },
+  { icon: '🦙', kw: 'lhama llama' },
+  { icon: '🦒', kw: 'girafa giraffe' },
+  { icon: '🐘', kw: 'elefante elephant' },
+  { icon: '🦏', kw: 'rinoceronte rhino' },
+  { icon: '🦛', kw: 'hipopótamo hippo' },
+  { icon: '🐭', kw: 'rato mouse' },
+  { icon: '🐁', kw: 'rato mouse' },
+  { icon: '🐀', kw: 'rato rat' },
+  { icon: '🐹', kw: 'hamster' },
+  { icon: '🐰', kw: 'coelho rabbit bunny' },
+  { icon: '🐇', kw: 'coelho rabbit' },
+  { icon: '🐿️', kw: 'esquilo squirrel' },
+  { icon: '🦔', kw: 'ouriço hedgehog' },
+  { icon: '🦇', kw: 'morcego bat' },
+  { icon: '🐻', kw: 'urso bear' },
+  { icon: '🐨', kw: 'coala koala' },
+  { icon: '🐼', kw: 'panda' },
+  { icon: '🦥', kw: 'preguiça sloth' },
+  { icon: '🦦', kw: 'lontra otter' },
+  { icon: '🦨', kw: 'gambá skunk' },
+  { icon: '🦘', kw: 'canguru kangaroo' },
+  { icon: '🐾', kw: 'pegadas paws' },
+  // Aves
+  { icon: '🦃', kw: 'peru turkey' },
+  { icon: '🐔', kw: 'galinha chicken' },
+  { icon: '🐓', kw: 'galo rooster' },
+  { icon: '🐣', kw: 'pintinho chick saindo' },
+  { icon: '🐤', kw: 'pintinho chick' },
+  { icon: '🐥', kw: 'pintinho chick frente' },
+  { icon: '🐦', kw: 'pássaro bird' },
+  { icon: '🐧', kw: 'pinguim penguin' },
+  { icon: '🕊️', kw: 'pomba dove paz' },
+  { icon: '🦅', kw: 'águia eagle' },
+  { icon: '🦆', kw: 'pato duck' },
+  { icon: '🦢', kw: 'cisne swan' },
+  { icon: '🦉', kw: 'coruja owl' },
+  { icon: '🦚', kw: 'pavão peacock' },
+  { icon: '🦜', kw: 'papagaio parrot' },
+  // Répteis / anfíbios / aquáticos
+  { icon: '🐸', kw: 'sapo frog' },
+  { icon: '🐊', kw: 'crocodilo crocodile' },
+  { icon: '🐢', kw: 'tartaruga turtle' },
+  { icon: '🦎', kw: 'lagarto lizard' },
+  { icon: '🐍', kw: 'cobra snake' },
+  { icon: '🐲', kw: 'dragão dragon' },
+  { icon: '🦕', kw: 'dinossauro sauropod' },
+  { icon: '🦖', kw: 't-rex dinossauro' },
+  { icon: '🐳', kw: 'baleia whale' },
+  { icon: '🐋', kw: 'baleia whale' },
+  { icon: '🐬', kw: 'golfinho dolphin' },
+  { icon: '🦭', kw: 'foca seal' },
+  { icon: '🐟', kw: 'peixe fish' },
+  { icon: '🐠', kw: 'peixe tropical fish' },
+  { icon: '🐡', kw: 'baiacu blowfish' },
+  { icon: '🦈', kw: 'tubarão shark' },
+  { icon: '🐙', kw: 'polvo octopus' },
+  { icon: '🦑', kw: 'lula squid' },
+  { icon: '🦐', kw: 'camarão shrimp' },
+  { icon: '🦞', kw: 'lagosta lobster' },
+  { icon: '🦀', kw: 'caranguejo crab' },
+  { icon: '🦪', kw: 'ostra oyster' },
+  { icon: '🐚', kw: 'concha shell' },
+  // Insetos
+  { icon: '🐌', kw: 'caracol snail' },
+  { icon: '🦋', kw: 'borboleta butterfly' },
+  { icon: '🐛', kw: 'larva bug' },
+  { icon: '🐜', kw: 'formiga ant' },
+  { icon: '🐝', kw: 'abelha bee mel' },
+  { icon: '🪲', kw: 'besouro beetle' },
+  { icon: '🐞', kw: 'joaninha ladybug' },
+  { icon: '🦗', kw: 'grilo cricket' },
+  { icon: '🕷️', kw: 'aranha spider' },
+  { icon: '🕸️', kw: 'teia web' },
+  { icon: '🦂', kw: 'escorpião scorpion' },
+  { icon: '🦟', kw: 'mosquito' },
+  { icon: '🪰', kw: 'mosca fly' },
+  { icon: '🪱', kw: 'minhoca worm' },
+  { icon: '🦠', kw: 'micróbio microbe vírus' },
+  // Plantas
+  { icon: '💐', kw: 'buquê bouquet flores' },
+  { icon: '🌷', kw: 'tulipa tulip flor' },
+  { icon: '🌹', kw: 'rosa rose flor' },
+  { icon: '🥀', kw: 'flor murcha wilted' },
+  { icon: '🌺', kw: 'hibisco flor flower' },
+  { icon: '🌸', kw: 'cerejeira cherry blossom flor' },
+  { icon: '🌼', kw: 'margarida flor blossom' },
+  { icon: '🌻', kw: 'girassol sunflower' },
+  { icon: '🌱', kw: 'planta plant muda seedling broto' },
+  { icon: '🌿', kw: 'erva herb folha' },
+  { icon: '☘️', kw: 'trevo shamrock' },
+  { icon: '🍀', kw: 'trevo sorte four leaf' },
+  { icon: '🎋', kw: 'bambu tanabata' },
+  { icon: '🎍', kw: 'pinheiro decoração pine' },
+  { icon: '🌵', kw: 'cacto cactus' },
+  { icon: '🌴', kw: 'palmeira palm' },
+  { icon: '🌳', kw: 'árvore tree' },
+  { icon: '🌲', kw: 'pinheiro evergreen tree' },
+  { icon: '🪵', kw: 'tora wood log' },
+  { icon: '🪴', kw: 'vaso planta potted' },
+  { icon: '🍂', kw: 'folha caída fallen leaves' },
+  { icon: '🍁', kw: 'folha bordo maple' },
+  { icon: '🍃', kw: 'folhas vento leaf wind' },
+  { icon: '🍄', kw: 'cogumelo mushroom' },
+  { icon: '🌾', kw: 'arroz wheat trigo' },
+  // Frutas
+  { icon: '🍇', kw: 'uva grape fruta' },
+  { icon: '🍈', kw: 'melão melon fruta' },
+  { icon: '🍉', kw: 'melancia watermelon fruta' },
+  { icon: '🍊', kw: 'laranja orange fruta' },
+  { icon: '🍋', kw: 'limão lemon fruta' },
+  { icon: '🍌', kw: 'banana fruta' },
+  { icon: '🍍', kw: 'abacaxi pineapple fruta' },
+  { icon: '🥭', kw: 'manga mango fruta' },
+  { icon: '🍎', kw: 'maçã apple fruta vermelha' },
+  { icon: '🍏', kw: 'maçã apple fruta verde' },
+  { icon: '🍐', kw: 'pera pear fruta' },
+  { icon: '🍑', kw: 'pêssego peach fruta' },
+  { icon: '🍒', kw: 'cereja cherry fruta' },
+  { icon: '🍓', kw: 'morango strawberry fruta' },
+  { icon: '🫐', kw: 'mirtilo blueberry' },
+  { icon: '🥝', kw: 'kiwi fruta' },
+  { icon: '🥥', kw: 'coco coconut' },
+  { icon: '🥑', kw: 'abacate avocado' },
+  // Verduras / vegetais
+  { icon: '🍅', kw: 'tomate tomato' },
+  { icon: '🫒', kw: 'azeitona olive' },
+  { icon: '🍆', kw: 'berinjela eggplant' },
+  { icon: '🥔', kw: 'batata potato' },
+  { icon: '🥕', kw: 'cenoura carrot' },
+  { icon: '🌽', kw: 'milho corn' },
+  { icon: '🌶️', kw: 'pimenta hot pepper' },
+  { icon: '🫑', kw: 'pimentão bell pepper' },
+  { icon: '🥒', kw: 'pepino cucumber' },
+  { icon: '🥬', kw: 'alface lettuce verdura' },
+  { icon: '🥦', kw: 'brócolis broccoli' },
+  { icon: '🧄', kw: 'alho garlic' },
+  { icon: '🧅', kw: 'cebola onion' },
+  { icon: '🥜', kw: 'amendoim peanut' },
+  { icon: '🌰', kw: 'castanha chestnut' },
+  // Pães / cereais
+  { icon: '🍞', kw: 'pão bread' },
+  { icon: '🥐', kw: 'croissant' },
+  { icon: '🥖', kw: 'baguete baguette' },
+  { icon: '🫓', kw: 'pão chato flatbread' },
+  { icon: '🥨', kw: 'pretzel' },
+  { icon: '🥯', kw: 'bagel' },
+  { icon: '🥞', kw: 'panqueca pancake' },
+  { icon: '🧇', kw: 'waffle' },
+  { icon: '🧀', kw: 'queijo cheese' },
+  // Carnes
+  { icon: '🍖', kw: 'carne osso meat' },
+  { icon: '🍗', kw: 'frango chicken leg' },
+  { icon: '🥩', kw: 'bife steak' },
+  { icon: '🥓', kw: 'bacon' },
+  // Comida pronta
+  { icon: '🍔', kw: 'hambúrguer burger fast food' },
+  { icon: '🍟', kw: 'batata frita fries' },
+  { icon: '🍕', kw: 'pizza' },
+  { icon: '🌭', kw: 'cachorro quente hot dog' },
+  { icon: '🥪', kw: 'sanduíche sandwich' },
+  { icon: '🌮', kw: 'taco' },
+  { icon: '🌯', kw: 'burrito' },
+  { icon: '🫔', kw: 'tamale' },
+  { icon: '🥙', kw: 'pita comida' },
+  { icon: '🧆', kw: 'falafel' },
+  { icon: '🥚', kw: 'ovo egg' },
+  { icon: '🍳', kw: 'ovo frito egg cooking' },
+  { icon: '🥘', kw: 'paella panela rasa' },
+  { icon: '🍲', kw: 'sopa ensopado pot' },
+  { icon: '🫕', kw: 'fondue' },
+  { icon: '🥣', kw: 'cereal tigela bowl' },
+  { icon: '🥗', kw: 'salada salad saudável' },
+  { icon: '🍿', kw: 'pipoca popcorn' },
+  { icon: '🧈', kw: 'manteiga butter' },
+  { icon: '🧂', kw: 'sal salt' },
+  { icon: '🥫', kw: 'enlatado canned food' },
+  // Comida asiática
+  { icon: '🍱', kw: 'bento japonês' },
+  { icon: '🍘', kw: 'biscoito arroz japonês' },
+  { icon: '🍙', kw: 'bolinho arroz onigiri' },
+  { icon: '🍚', kw: 'arroz rice' },
+  { icon: '🍛', kw: 'curry' },
+  { icon: '🍜', kw: 'lámen ramen noodle' },
+  { icon: '🍝', kw: 'macarrão pasta espaguete' },
+  { icon: '🍠', kw: 'batata doce sweet potato' },
+  { icon: '🍢', kw: 'oden japonês' },
+  { icon: '🍣', kw: 'sushi' },
+  { icon: '🍤', kw: 'camarão tempura fried shrimp' },
+  { icon: '🍥', kw: 'narutomaki sushi' },
+  { icon: '🥮', kw: 'mooncake bolo lua' },
+  { icon: '🍡', kw: 'dango espetinho doce' },
+  { icon: '🥟', kw: 'pastel guioza dumpling' },
+  { icon: '🥠', kw: 'biscoito sorte fortune' },
+  { icon: '🥡', kw: 'comida viagem takeout' },
+  // Doces
+  { icon: '🍦', kw: 'sorvete ice cream casquinha' },
+  { icon: '🍧', kw: 'sorvete raspado shaved ice' },
+  { icon: '🍨', kw: 'sorvete pote ice cream' },
+  { icon: '🍩', kw: 'rosquinha donut' },
+  { icon: '🍪', kw: 'biscoito cookie' },
+  { icon: '🎂', kw: 'bolo aniversário birthday cake' },
+  { icon: '🍰', kw: 'bolo cake fatia' },
+  { icon: '🧁', kw: 'cupcake bolinho' },
+  { icon: '🥧', kw: 'torta pie' },
+  { icon: '🍫', kw: 'chocolate' },
+  { icon: '🍬', kw: 'bala candy' },
+  { icon: '🍭', kw: 'pirulito lollipop' },
+  { icon: '🍮', kw: 'pudim flan' },
+  { icon: '🍯', kw: 'mel honey' },
+  // Bebidas
+  { icon: '🍼', kw: 'mamadeira baby bottle leite' },
+  { icon: '🥛', kw: 'leite milk copo' },
+  { icon: '☕', kw: 'café coffee' },
+  { icon: '🫖', kw: 'bule chá teapot' },
+  { icon: '🍵', kw: 'chá tea' },
+  { icon: '🍶', kw: 'sake japonês' },
+  { icon: '🍾', kw: 'champanhe espumante champagne' },
+  { icon: '🍷', kw: 'vinho wine taça' },
+  { icon: '🍸', kw: 'martini drink' },
+  { icon: '🍹', kw: 'tropical drink coquetel' },
+  { icon: '🍺', kw: 'cerveja beer caneca' },
+  { icon: '🍻', kw: 'cervejas brindis cheers' },
+  { icon: '🥂', kw: 'taças cheers brindis' },
+  { icon: '🥃', kw: 'whisky tumbler' },
+  { icon: '🥤', kw: 'refrigerante soda canudo' },
+  { icon: '🧋', kw: 'bubble tea' },
+  { icon: '🧃', kw: 'caixinha suco juice box' },
+  { icon: '🧉', kw: 'chimarrão mate' },
+  { icon: '🧊', kw: 'gelo ice cube' },
+  // Talheres / utensílios
+  { icon: '🥢', kw: 'hashi chopsticks' },
+  { icon: '🍽️', kw: 'prato garfo faca dish' },
+  { icon: '🍴', kw: 'garfo faca fork knife' },
+  { icon: '🥄', kw: 'colher spoon' },
+  { icon: '🔪', kw: 'faca knife cozinha' },
+  { icon: '🏺', kw: 'ânfora amphora' },
+  // Lugares / geografia
+  { icon: '🌍', kw: 'globo terra mundo earth' },
+  { icon: '🌎', kw: 'globo terra americas earth' },
+  { icon: '🌏', kw: 'globo terra ásia asia' },
+  { icon: '🌐', kw: 'globo internet mundo' },
+  { icon: '🗺️', kw: 'mapa mundi map' },
+  { icon: '🧭', kw: 'bússola compass' },
+  { icon: '🏔️', kw: 'montanha neve snow capped' },
+  { icon: '⛰️', kw: 'montanha mountain' },
+  { icon: '🌋', kw: 'vulcão volcano' },
+  { icon: '🗻', kw: 'fuji montanha' },
+  { icon: '🏕️', kw: 'camping acampamento' },
+  { icon: '🏖️', kw: 'praia beach férias' },
+  { icon: '🏜️', kw: 'deserto desert' },
+  { icon: '🏝️', kw: 'ilha deserta island' },
+  { icon: '🏞️', kw: 'parque nacional national park' },
+  { icon: '🏟️', kw: 'estádio stadium' },
+  { icon: '🏛️', kw: 'edifício clássico classical' },
+  { icon: '🏗️', kw: 'construção under construction' },
+  { icon: '🧱', kw: 'tijolo brick' },
+  { icon: '🪨', kw: 'pedra rock' },
+  { icon: '🏘️', kw: 'casas houses' },
+  { icon: '🏚️', kw: 'casa abandonada derelict' },
+  { icon: '🏠', kw: 'casa home pessoal' },
+  { icon: '🏡', kw: 'casa jardim home garden' },
+  { icon: '🏢', kw: 'edifício prédio office' },
+  { icon: '🏣', kw: 'correios japonês post' },
+  { icon: '🏤', kw: 'correios post office' },
+  { icon: '🏥', kw: 'hospital' },
+  { icon: '🏦', kw: 'banco bank' },
+  { icon: '🏨', kw: 'hotel' },
+  { icon: '🏩', kw: 'love hotel' },
+  { icon: '🏪', kw: 'conveniência convenience' },
+  { icon: '🏫', kw: 'escola school' },
+  { icon: '🏬', kw: 'shopping department store' },
+  { icon: '🏭', kw: 'fábrica factory' },
+  { icon: '🏯', kw: 'castelo japonês castle' },
+  { icon: '🏰', kw: 'castelo medieval castle' },
+  { icon: '💒', kw: 'casamento igreja wedding' },
+  { icon: '🗼', kw: 'torre tóquio tower' },
+  { icon: '🗽', kw: 'estátua liberdade liberty' },
+  { icon: '⛪', kw: 'igreja church' },
+  { icon: '🕌', kw: 'mesquita mosque' },
+  { icon: '🛕', kw: 'templo hindu temple' },
+  { icon: '🕍', kw: 'sinagoga synagogue' },
+  { icon: '⛩️', kw: 'torii japonês shinto' },
+  { icon: '🕋', kw: 'kaaba meca' },
+  { icon: '⛲', kw: 'fonte fountain' },
+  { icon: '⛺', kw: 'barraca tent camping' },
+  { icon: '🌁', kw: 'névoa fog ponte' },
+  { icon: '🌃', kw: 'noite estrelada night' },
+  { icon: '🏙️', kw: 'cidade cityscape' },
+  { icon: '🌄', kw: 'amanhecer sunrise montanha' },
+  { icon: '🌅', kw: 'amanhecer sunrise' },
+  { icon: '🌆', kw: 'cidade entardecer dusk' },
+  { icon: '🌇', kw: 'pôr do sol sunset' },
+  { icon: '🌉', kw: 'ponte noite bridge' },
+  { icon: '♨️', kw: 'fonte termal hot springs' },
+  // Transporte
+  { icon: '🚂', kw: 'locomotiva trem train' },
+  { icon: '🚃', kw: 'vagão railway' },
+  { icon: '🚄', kw: 'trem bala high speed' },
+  { icon: '🚅', kw: 'trem bala bullet' },
+  { icon: '🚆', kw: 'trem train' },
+  { icon: '🚇', kw: 'metrô metro subway' },
+  { icon: '🚈', kw: 'trem light rail' },
+  { icon: '🚉', kw: 'estação station' },
+  { icon: '🚊', kw: 'bonde tram' },
+  { icon: '🚝', kw: 'monotrilho monorail' },
+  { icon: '🚞', kw: 'trem montanha' },
+  { icon: '🚋', kw: 'bonde tram' },
+  { icon: '🚌', kw: 'ônibus bus' },
+  { icon: '🚍', kw: 'ônibus oncoming' },
+  { icon: '🚎', kw: 'trolleybus' },
+  { icon: '🚐', kw: 'van minibus' },
+  { icon: '🚑', kw: 'ambulância ambulance' },
+  { icon: '🚒', kw: 'bombeiros fire engine' },
+  { icon: '🚓', kw: 'polícia police car' },
+  { icon: '🚔', kw: 'polícia oncoming' },
+  { icon: '🚕', kw: 'táxi taxi' },
+  { icon: '🚗', kw: 'carro car' },
+  { icon: '🚙', kw: 'suv recreational' },
+  { icon: '🛻', kw: 'caminhonete pickup' },
+  { icon: '🚚', kw: 'caminhão entrega delivery' },
+  { icon: '🚛', kw: 'caminhão grande articulated' },
+  { icon: '🚜', kw: 'trator tractor' },
+  { icon: '🏎️', kw: 'corrida racing car' },
+  { icon: '🏍️', kw: 'moto motorcycle' },
+  { icon: '🛵', kw: 'scooter motorbike' },
+  { icon: '🦽', kw: 'cadeira rodas manual wheelchair' },
+  { icon: '🦼', kw: 'cadeira rodas motorizada' },
+  { icon: '🛺', kw: 'rickshaw tuk tuk' },
+  { icon: '🚲', kw: 'bicicleta bike' },
+  { icon: '🛴', kw: 'patinete kick scooter' },
+  { icon: '🛹', kw: 'skate skateboard' },
+  { icon: '🛼', kw: 'patins roller skate' },
+  { icon: '🚏', kw: 'parada ônibus bus stop' },
+  { icon: '🛣️', kw: 'rodovia motorway' },
+  { icon: '🛤️', kw: 'trilhos railway track' },
+  { icon: '🛢️', kw: 'tambor óleo barrel' },
+  { icon: '⛽', kw: 'posto gasolina fuel' },
+  { icon: '🚨', kw: 'sirene polícia luz' },
+  { icon: '🚥', kw: 'semáforo horizontal traffic' },
+  { icon: '🚦', kw: 'semáforo vertical' },
+  { icon: '🛑', kw: 'pare stop sign' },
+  { icon: '🚧', kw: 'construção barreira' },
+  // Embarcações / aviação
+  { icon: '⚓', kw: 'âncora anchor' },
+  { icon: '⛵', kw: 'veleiro sailboat' },
+  { icon: '🛶', kw: 'canoa canoe' },
+  { icon: '🚤', kw: 'lancha speedboat' },
+  { icon: '🛥️', kw: 'barco motorboat' },
+  { icon: '🛳️', kw: 'navio passageiros passenger' },
+  { icon: '⛴️', kw: 'balsa ferry' },
+  { icon: '🚢', kw: 'navio ship' },
+  { icon: '✈️', kw: 'avião airplane voo' },
+  { icon: '🛩️', kw: 'avião pequeno small airplane' },
+  { icon: '🛫', kw: 'decolagem departure' },
+  { icon: '🛬', kw: 'pouso landing' },
+  { icon: '🪂', kw: 'paraquedas parachute' },
+  { icon: '💺', kw: 'assento seat' },
+  { icon: '🚁', kw: 'helicóptero helicopter' },
+  { icon: '🚟', kw: 'monotrilho suspended' },
+  { icon: '🚠', kw: 'teleférico aerial tramway' },
+  { icon: '🚡', kw: 'teleférico mountain' },
+  { icon: '🛰️', kw: 'satélite satellite' },
+  { icon: '🚀', kw: 'foguete rocket lançamento' },
+  { icon: '🛸', kw: 'disco voador ufo' },
+  // Tempo / clima
+  { icon: '☀️', kw: 'sol sun ensolarado' },
+  { icon: '🌝', kw: 'lua cheia rosto' },
+  { icon: '🌞', kw: 'sol rosto face' },
+  { icon: '🌚', kw: 'lua nova rosto' },
+  { icon: '🌛', kw: 'lua face quarter' },
+  { icon: '🌜', kw: 'lua face quarter' },
+  { icon: '🌑', kw: 'lua nova new moon' },
+  { icon: '🌒', kw: 'lua crescente' },
+  { icon: '🌓', kw: 'lua quarto crescente' },
+  { icon: '🌔', kw: 'lua gibosa' },
+  { icon: '🌕', kw: 'lua cheia full moon' },
+  { icon: '🌖', kw: 'lua minguante' },
+  { icon: '🌗', kw: 'lua quarto minguante' },
+  { icon: '🌘', kw: 'lua minguante' },
+  { icon: '🌙', kw: 'lua moon crescent' },
+  { icon: '🌎', kw: 'globo terra' },
+  { icon: '🪐', kw: 'planeta saturno planet' },
+  { icon: '⭐', kw: 'estrela star favorito' },
+  { icon: '🌟', kw: 'estrela brilhante glowing' },
+  { icon: '🌠', kw: 'estrela cadente shooting' },
+  { icon: '🌌', kw: 'via láctea milky way' },
+  { icon: '☁️', kw: 'nuvem cloud' },
+  { icon: '⛅', kw: 'sol nuvem partly cloudy' },
+  { icon: '⛈️', kw: 'tempestade thunder' },
+  { icon: '🌤️', kw: 'sol parcialmente sunny' },
+  { icon: '🌥️', kw: 'parcialmente nublado' },
+  { icon: '🌦️', kw: 'sol chuva sun rain' },
+  { icon: '🌧️', kw: 'chuva rain' },
+  { icon: '🌨️', kw: 'neve snow' },
+  { icon: '🌩️', kw: 'raio lightning' },
+  { icon: '🌪️', kw: 'tornado' },
+  { icon: '🌫️', kw: 'neblina fog' },
+  { icon: '🌬️', kw: 'vento wind' },
+  { icon: '🌀', kw: 'ciclone cyclone furacão' },
+  { icon: '🌈', kw: 'arco-íris rainbow' },
+  { icon: '🌂', kw: 'guarda-chuva fechado umbrella' },
+  { icon: '☂️', kw: 'guarda-chuva aberto' },
+  { icon: '☔', kw: 'guarda-chuva chuva' },
+  { icon: '⛱️', kw: 'guarda-sol praia beach umbrella' },
+  { icon: '⚡', kw: 'raio energia bolt' },
+  { icon: '❄️', kw: 'floco neve snowflake frio' },
+  { icon: '☃️', kw: 'boneco neve snowman' },
+  { icon: '⛄', kw: 'boneco neve sem snow' },
+  { icon: '☄️', kw: 'cometa comet' },
+  { icon: '🔥', kw: 'fogo fire trending' },
+  { icon: '💧', kw: 'gota água water drop' },
+  { icon: '🌊', kw: 'onda mar wave' },
+  // Esportes / atividades
+  { icon: '⚽', kw: 'futebol soccer ball' },
+  { icon: '🏀', kw: 'basquete basketball' },
+  { icon: '🏈', kw: 'futebol americano football' },
+  { icon: '⚾', kw: 'beisebol baseball' },
+  { icon: '🥎', kw: 'softball' },
+  { icon: '🎾', kw: 'tênis tennis' },
+  { icon: '🏐', kw: 'vôlei volleyball' },
+  { icon: '🏉', kw: 'rugby' },
+  { icon: '🥏', kw: 'frisbee disc' },
+  { icon: '🎱', kw: 'sinuca billiard 8 ball' },
+  { icon: '🪀', kw: 'ioiô yoyo' },
+  { icon: '🏓', kw: 'tênis mesa ping pong' },
+  { icon: '🏸', kw: 'badminton' },
+  { icon: '🏒', kw: 'hóquei gelo ice hockey' },
+  { icon: '🏑', kw: 'hóquei field hockey' },
+  { icon: '🥍', kw: 'lacrosse' },
+  { icon: '🏏', kw: 'cricket' },
+  { icon: '🪃', kw: 'bumerangue boomerang' },
+  { icon: '🥅', kw: 'gol goal net' },
+  { icon: '⛳', kw: 'golfe golf flag' },
+  { icon: '🪁', kw: 'pipa kite' },
+  { icon: '🏹', kw: 'arco flecha bow arrow' },
+  { icon: '🎣', kw: 'pesca fishing' },
+  { icon: '🤿', kw: 'mergulho diving mask' },
+  { icon: '🥊', kw: 'boxe boxing glove' },
+  { icon: '🥋', kw: 'kimono martial arts' },
+  { icon: '🎽', kw: 'corrida shirt running' },
+  { icon: '⛸️', kw: 'patinação ice skate' },
+  { icon: '🥌', kw: 'curling pedra' },
+  { icon: '🎿', kw: 'esqui ski snow' },
+  { icon: '⛷️', kw: 'esquiador skier' },
+  { icon: '🏂', kw: 'snowboard' },
+  { icon: '🪂', kw: 'paraquedas' },
+  { icon: '🏋️', kw: 'levantamento peso weightlifter' },
+  { icon: '🤼', kw: 'luta wrestlers' },
+  { icon: '🤸', kw: 'cambalhota cartwheel' },
+  { icon: '⛹️', kw: 'basquete dribble' },
+  { icon: '🤺', kw: 'esgrima fencer' },
+  { icon: '🤾', kw: 'handebol handball' },
+  { icon: '🏌️', kw: 'golfe golfer' },
+  { icon: '🏇', kw: 'corrida cavalo horse race' },
+  { icon: '🧘', kw: 'yoga meditação meditation' },
+  { icon: '🏄', kw: 'surfe surfing' },
+  { icon: '🏊', kw: 'natação swimming' },
+  { icon: '🤽', kw: 'polo aquático water polo' },
+  { icon: '🚣', kw: 'remo rowing' },
+  { icon: '🧗', kw: 'escalada climbing' },
+  { icon: '🚵', kw: 'mountain bike' },
+  { icon: '🚴', kw: 'ciclismo cyclist' },
+  // Prêmios / festas
+  { icon: '🏆', kw: 'troféu trophy vencedor' },
+  { icon: '🥇', kw: 'medalha ouro gold first' },
+  { icon: '🥈', kw: 'medalha prata silver second' },
+  { icon: '🥉', kw: 'medalha bronze third' },
+  { icon: '🏅', kw: 'medalha sport' },
+  { icon: '🎖️', kw: 'medalha militar military' },
+  { icon: '🏵️', kw: 'roseta rosette' },
+  { icon: '🎗️', kw: 'fita reminder ribbon' },
+  { icon: '🎫', kw: 'ingresso ticket' },
+  { icon: '🎟️', kw: 'admissão admission' },
+  { icon: '🎪', kw: 'circo circus' },
+  { icon: '🤹', kw: 'malabarista juggling' },
+  { icon: '🎭', kw: 'teatro theater máscaras' },
+  { icon: '🩰', kw: 'sapatilha ballet' },
+  { icon: '🎨', kw: 'arte paint paleta' },
+  { icon: '🎬', kw: 'cinema clapperboard filme' },
+  { icon: '🎤', kw: 'microfone microphone' },
+  { icon: '🎧', kw: 'fones headphone' },
+  { icon: '🎼', kw: 'partitura musical score' },
+  { icon: '🎵', kw: 'nota musical music' },
+  { icon: '🎶', kw: 'notas musicais notes' },
+  { icon: '🥁', kw: 'bateria drum' },
+  { icon: '🪘', kw: 'tambor djembe long drum' },
+  { icon: '🎹', kw: 'piano teclado musical' },
+  { icon: '🎷', kw: 'saxofone saxophone' },
+  { icon: '🎺', kw: 'trompete trumpet' },
+  { icon: '🎸', kw: 'guitarra violão guitar' },
+  { icon: '🪕', kw: 'banjo' },
+  { icon: '🎻', kw: 'violino violin' },
+  { icon: '🎲', kw: 'dado dice' },
+  { icon: '♟️', kw: 'xadrez peão chess pawn' },
+  { icon: '🎯', kw: 'alvo dardos meta target' },
+  { icon: '🎳', kw: 'boliche bowling' },
+  { icon: '🎮', kw: 'videogame gaming' },
+  { icon: '🕹️', kw: 'joystick arcade' },
+  { icon: '🎰', kw: 'caça-níquel slot machine' },
+  { icon: '🧩', kw: 'puzzle quebra-cabeça' },
+  // Roupas / acessórios
+  { icon: '👓', kw: 'óculos glasses' },
+  { icon: '🕶️', kw: 'óculos sol sunglasses' },
+  { icon: '🥽', kw: 'óculos proteção goggles' },
+  { icon: '🥼', kw: 'jaleco lab coat' },
+  { icon: '🦺', kw: 'colete safety' },
+  { icon: '👔', kw: 'gravata necktie' },
+  { icon: '👕', kw: 'camiseta t-shirt' },
+  { icon: '👖', kw: 'jeans calça pants' },
+  { icon: '🧣', kw: 'cachecol scarf' },
+  { icon: '🧤', kw: 'luva gloves' },
+  { icon: '🧥', kw: 'casaco coat' },
+  { icon: '🧦', kw: 'meia socks' },
+  { icon: '👗', kw: 'vestido dress' },
+  { icon: '👘', kw: 'kimono' },
+  { icon: '🥻', kw: 'sari' },
+  { icon: '🩱', kw: 'maiô one piece' },
+  { icon: '🩲', kw: 'sunga briefs' },
+  { icon: '🩳', kw: 'shorts' },
+  { icon: '👙', kw: 'biquíni bikini' },
+  { icon: '👚', kw: 'blusa' },
+  { icon: '👛', kw: 'bolsa purse' },
+  { icon: '👜', kw: 'bolsa handbag' },
+  { icon: '👝', kw: 'pochete clutch' },
+  { icon: '🎒', kw: 'mochila backpack' },
+  { icon: '🧳', kw: 'mala suitcase viagem' },
+  { icon: '👞', kw: 'sapato shoe' },
+  { icon: '👟', kw: 'tênis sneakers running' },
+  { icon: '🥾', kw: 'bota hiking boot' },
+  { icon: '🥿', kw: 'sapato baixo flat shoe' },
+  { icon: '👠', kw: 'salto alto high heel' },
+  { icon: '👡', kw: 'sandália woman' },
+  { icon: '🩴', kw: 'chinelo flip flop' },
+  { icon: '👢', kw: 'bota boot' },
+  { icon: '👑', kw: 'coroa crown rei rainha' },
+  { icon: '👒', kw: 'chapéu sun hat' },
+  { icon: '🎩', kw: 'cartola top hat' },
+  { icon: '🎓', kw: 'formatura graduation' },
+  { icon: '🧢', kw: 'boné cap' },
+  { icon: '🪖', kw: 'capacete militar' },
+  { icon: '⛑️', kw: 'capacete safety helmet' },
+  { icon: '💄', kw: 'batom lipstick' },
+  { icon: '💍', kw: 'anel ring' },
+  { icon: '💼', kw: 'pasta briefcase trabalho' },
+  // Símbolos coração / amor
+  { icon: '❤️', kw: 'coração red heart amor love' },
+  { icon: '🧡', kw: 'coração laranja orange' },
+  { icon: '💛', kw: 'coração amarelo yellow' },
+  { icon: '💚', kw: 'coração verde green' },
+  { icon: '💙', kw: 'coração azul blue' },
+  { icon: '💜', kw: 'coração roxo purple' },
+  { icon: '🤎', kw: 'coração marrom brown' },
+  { icon: '🖤', kw: 'coração preto black' },
+  { icon: '🤍', kw: 'coração branco white' },
+  { icon: '💔', kw: 'coração partido broken' },
+  { icon: '❣️', kw: 'coração exclamação' },
+  { icon: '💕', kw: 'corações two hearts' },
+  { icon: '💞', kw: 'corações revolving' },
+  { icon: '💓', kw: 'coração beating' },
+  { icon: '💗', kw: 'coração growing' },
+  { icon: '💖', kw: 'coração sparkling' },
+  { icon: '💘', kw: 'coração flecha cupido' },
+  { icon: '💝', kw: 'coração presente' },
+  { icon: '💟', kw: 'coração decoração' },
+  // Símbolos / dinheiro
+  { icon: '💰', kw: 'dinheiro money saco bag' },
+  { icon: '💴', kw: 'iene japonês yen' },
+  { icon: '💵', kw: 'dólar dollar' },
+  { icon: '💶', kw: 'euro' },
+  { icon: '💷', kw: 'libra pound' },
+  { icon: '💸', kw: 'dinheiro voando flying money' },
+  { icon: '💳', kw: 'cartão crédito card' },
+  { icon: '🧾', kw: 'recibo receipt' },
+  { icon: '💎', kw: 'diamante diamond gem' },
+  { icon: '⚖️', kw: 'balança scale justiça' },
+  { icon: '🪙', kw: 'moeda coin' },
+  // Ferramentas
+  { icon: '🪜', kw: 'escada ladder' },
+  { icon: '🧰', kw: 'caixa ferramentas toolbox' },
+  { icon: '🪛', kw: 'chave fenda screwdriver' },
+  { icon: '🔧', kw: 'chave inglesa wrench' },
+  { icon: '🔨', kw: 'martelo hammer' },
+  { icon: '⚒️', kw: 'martelo picareta' },
+  { icon: '🛠️', kw: 'ferramentas tools' },
+  { icon: '⛏️', kw: 'picareta pickaxe' },
+  { icon: '🪚', kw: 'serra saw' },
+  { icon: '🔩', kw: 'parafuso porca nut bolt' },
+  { icon: '⚙️', kw: 'engrenagem gear' },
+  { icon: '🪤', kw: 'ratoeira mouse trap' },
+  { icon: '🧲', kw: 'ímã magnet' },
+  { icon: '⛓️', kw: 'corrente chain' },
+  // Armas / segurança
+  { icon: '🔫', kw: 'pistola água gun water' },
+  { icon: '💣', kw: 'bomba bomb' },
+  { icon: '🧨', kw: 'dinamite firecracker' },
+  { icon: '🪓', kw: 'machado axe' },
+  { icon: '🗡️', kw: 'adaga dagger' },
+  { icon: '⚔️', kw: 'espadas crossed swords' },
+  { icon: '🛡️', kw: 'escudo shield' },
+  // Relógios
+  { icon: '⌚', kw: 'relógio pulso watch' },
+  { icon: '⏰', kw: 'despertador alarm' },
+  { icon: '⏲️', kw: 'timer cronômetro' },
+  { icon: '⏱️', kw: 'cronômetro stopwatch' },
+  { icon: '🕰️', kw: 'relógio mantel' },
+  { icon: '⌛', kw: 'ampulheta hourglass' },
+  { icon: '⏳', kw: 'ampulheta passando' },
+  // Tecnologia
+  { icon: '📱', kw: 'celular smartphone phone' },
+  { icon: '📲', kw: 'celular seta call' },
+  { icon: '💻', kw: 'laptop notebook computer' },
+  { icon: '⌨️', kw: 'teclado keyboard' },
+  { icon: '🖥️', kw: 'desktop computer' },
+  { icon: '🖨️', kw: 'impressora printer' },
+  { icon: '🖱️', kw: 'mouse computer' },
+  { icon: '🖲️', kw: 'trackball' },
+  { icon: '🗜️', kw: 'morsa clamp' },
+  { icon: '💽', kw: 'minidisc' },
+  { icon: '💾', kw: 'disquete floppy save salvar' },
+  { icon: '💿', kw: 'cd disco' },
+  { icon: '📀', kw: 'dvd disco' },
+  { icon: '📷', kw: 'câmera camera' },
+  { icon: '📸', kw: 'câmera flash camera' },
+  { icon: '📹', kw: 'filmadora video camera' },
+  { icon: '🎥', kw: 'câmera filmagem movie' },
+  { icon: '📽️', kw: 'projetor projector' },
+  { icon: '🎞️', kw: 'rolo film frames' },
+  { icon: '📞', kw: 'telefone phone call' },
+  { icon: '☎️', kw: 'telefone fixo phone' },
+  { icon: '📟', kw: 'pager bipe' },
+  { icon: '📠', kw: 'fax' },
+  { icon: '📺', kw: 'tv televisão' },
+  { icon: '📻', kw: 'rádio radio' },
+  { icon: '🎙️', kw: 'microfone studio' },
+  { icon: '🎚️', kw: 'mixer fader level' },
+  { icon: '🎛️', kw: 'controles knobs' },
+  { icon: '📡', kw: 'antena satellite' },
+  { icon: '🔋', kw: 'bateria battery' },
+  { icon: '🔌', kw: 'plug tomada' },
+  { icon: '💡', kw: 'lâmpada idea light' },
+  { icon: '🔦', kw: 'lanterna flashlight' },
+  { icon: '🕯️', kw: 'vela candle' },
+  { icon: '🪔', kw: 'lamparina diya' },
+  { icon: '🧯', kw: 'extintor fire extinguisher' },
+  // Comunicação / escritório
+  { icon: '✉️', kw: 'envelope email' },
+  { icon: '📧', kw: 'email correio' },
+  { icon: '📨', kw: 'envelope chegando' },
+  { icon: '📩', kw: 'envelope seta' },
+  { icon: '💌', kw: 'carta amor love letter' },
+  { icon: '📥', kw: 'inbox caixa entrada' },
+  { icon: '📤', kw: 'outbox caixa saída' },
+  { icon: '📦', kw: 'pacote box' },
+  { icon: '🏷️', kw: 'etiqueta label tag' },
+  { icon: '📪', kw: 'caixa correio fechada mailbox' },
+  { icon: '📫', kw: 'caixa correio bandeira mailbox' },
+  { icon: '📬', kw: 'caixa correio aberta' },
+  { icon: '📭', kw: 'caixa correio vazia' },
+  { icon: '📮', kw: 'caixa postal postbox' },
+  { icon: '📜', kw: 'pergaminho scroll' },
+  { icon: '📃', kw: 'página enrolada page' },
+  { icon: '📄', kw: 'página papel document' },
+  { icon: '📑', kw: 'marcadores bookmark tabs' },
+  { icon: '📊', kw: 'gráfico barras chart' },
+  { icon: '📈', kw: 'gráfico crescendo' },
+  { icon: '📉', kw: 'gráfico caindo down' },
+  { icon: '🗒️', kw: 'bloco notas spiral notepad' },
+  { icon: '🗓️', kw: 'calendário spiral' },
+  { icon: '📆', kw: 'calendário tearoff' },
+  { icon: '📅', kw: 'calendário data' },
+  { icon: '🗑️', kw: 'lixeira wastebasket' },
+  { icon: '📇', kw: 'cartões index' },
+  { icon: '🗃️', kw: 'arquivo card file' },
+  { icon: '🗳️', kw: 'urna votação ballot' },
+  { icon: '🗄️', kw: 'arquivos cabinet' },
+  { icon: '📋', kw: 'prancheta clipboard tarefas todo' },
+  { icon: '📁', kw: 'pasta folder' },
+  { icon: '📂', kw: 'pasta aberta open' },
+  { icon: '🗂️', kw: 'pastas card index dividers' },
+  { icon: '🗞️', kw: 'jornal enrolado newspaper' },
+  { icon: '📰', kw: 'jornal newspaper' },
+  { icon: '📓', kw: 'caderno notebook' },
+  { icon: '📔', kw: 'caderno capa decorada' },
+  { icon: '📒', kw: 'livro razão ledger' },
+  { icon: '📕', kw: 'livro vermelho closed book' },
+  { icon: '📗', kw: 'livro verde green' },
+  { icon: '📘', kw: 'livro azul blue' },
+  { icon: '📙', kw: 'livro laranja orange' },
+  { icon: '📚', kw: 'livros books estudos study' },
+  { icon: '📖', kw: 'livro aberto open book' },
+  { icon: '🔖', kw: 'marcador bookmark' },
+  { icon: '🧷', kw: 'alfinete safety pin' },
+  { icon: '🔗', kw: 'link chain' },
+  { icon: '📎', kw: 'clipe paperclip' },
+  { icon: '🖇️', kw: 'clipes linked' },
+  { icon: '📐', kw: 'esquadro triangular ruler' },
+  { icon: '📏', kw: 'régua straight ruler' },
+  { icon: '🧮', kw: 'ábaco abacus' },
+  { icon: '📌', kw: 'alfinete pin push' },
+  { icon: '📍', kw: 'localização round pushpin' },
+  { icon: '✂️', kw: 'tesoura scissors' },
+  { icon: '🖊️', kw: 'caneta pen ballpoint' },
+  { icon: '🖋️', kw: 'caneta tinta fountain' },
+  { icon: '✒️', kw: 'pena black nib' },
+  { icon: '🖌️', kw: 'pincel paintbrush' },
+  { icon: '🖍️', kw: 'giz crayon' },
+  { icon: '📝', kw: 'memo nota write' },
+  { icon: '✏️', kw: 'lápis pencil' },
+  // Busca / segurança
+  { icon: '🔍', kw: 'lupa busca search left' },
+  { icon: '🔎', kw: 'lupa busca search right' },
+  { icon: '🔏', kw: 'cadeado caneta lock pen' },
+  { icon: '🔐', kw: 'cadeado chave lock key' },
+  { icon: '🔒', kw: 'cadeado fechado lock' },
+  { icon: '🔓', kw: 'cadeado aberto unlock' },
+  { icon: '🔑', kw: 'chave key' },
+  { icon: '🗝️', kw: 'chave antiga old key' },
+  { icon: '🔔', kw: 'sino bell' },
+  { icon: '🔕', kw: 'sino mudo bell off' },
+  { icon: '📣', kw: 'megafone megaphone' },
+  { icon: '📢', kw: 'alto-falante loudspeaker' },
+  { icon: '🔊', kw: 'volume alto speaker' },
+  { icon: '🔉', kw: 'volume médio speaker' },
+  { icon: '🔈', kw: 'volume baixo speaker' },
+  { icon: '🔇', kw: 'mudo muted' },
+  { icon: '💬', kw: 'balão fala chat speech' },
+  { icon: '💭', kw: 'balão pensamento thought' },
+  { icon: '🗨️', kw: 'balão esquerda speech' },
+  { icon: '🗯️', kw: 'balão raiva right anger' },
+  // Religião
+  { icon: '🕉️', kw: 'om hindu' },
+  { icon: '✡️', kw: 'estrela davi star david' },
+  { icon: '☸️', kw: 'dharma wheel' },
+  { icon: '☯️', kw: 'yin yang' },
+  { icon: '✝️', kw: 'cruz cristã cross' },
+  { icon: '☦️', kw: 'cruz ortodoxa orthodox' },
+  { icon: '☪️', kw: 'crescente lua estrela islã' },
+  { icon: '☮️', kw: 'paz peace' },
+  { icon: '🕎', kw: 'menorá menorah' },
+  { icon: '🔯', kw: 'estrela seis pontas dotted' },
+  // Zodíaco
+  { icon: '♈', kw: 'áries aries zodíaco' },
+  { icon: '♉', kw: 'touro taurus zodíaco' },
+  { icon: '♊', kw: 'gêmeos gemini zodíaco' },
+  { icon: '♋', kw: 'câncer cancer zodíaco' },
+  { icon: '♌', kw: 'leão leo zodíaco' },
+  { icon: '♍', kw: 'virgem virgo zodíaco' },
+  { icon: '♎', kw: 'libra zodíaco' },
+  { icon: '♏', kw: 'escorpião scorpio zodíaco' },
+  { icon: '♐', kw: 'sagitário sagittarius zodíaco' },
+  { icon: '♑', kw: 'capricórnio capricorn zodíaco' },
+  { icon: '♒', kw: 'aquário aquarius zodíaco' },
+  { icon: '♓', kw: 'peixes pisces zodíaco' },
+  { icon: '⛎', kw: 'serpentário ophiuchus zodíaco' },
+  // Aviso / sinais
+  { icon: '☢️', kw: 'radioativo radioactive' },
+  { icon: '☣️', kw: 'biohazard biológico' },
+  { icon: '⚠️', kw: 'aviso warning atenção' },
+  { icon: '🚸', kw: 'crianças cuidado children crossing' },
+  { icon: '⛔', kw: 'proibido entrada no entry' },
+  { icon: '🚫', kw: 'proibido prohibited' },
+  { icon: '🚳', kw: 'proibido bicicleta no bicycles' },
+  { icon: '🚭', kw: 'proibido fumar no smoking' },
+  { icon: '🚯', kw: 'proibido lixo no littering' },
+  { icon: '🚱', kw: 'proibido beber não potável' },
+  { icon: '🚷', kw: 'proibido pedestres no pedestrians' },
+  { icon: '📵', kw: 'proibido celular no mobile' },
+  { icon: '🔞', kw: 'proibido menores 18' },
+  // Outros símbolos comuns
+  { icon: '✅', kw: 'check feito done correto' },
+  { icon: '☑️', kw: 'caixa checada ballot box' },
+  { icon: '✔️', kw: 'check correto' },
+  { icon: '❌', kw: 'errado wrong cancelar' },
+  { icon: '❎', kw: 'cruz negativa cross' },
+  { icon: '➕', kw: 'mais plus' },
+  { icon: '➖', kw: 'menos minus' },
+  { icon: '➗', kw: 'divisão division' },
+  { icon: '✖️', kw: 'multiplicação multiply' },
+  { icon: '♾️', kw: 'infinito infinity' },
+  { icon: '‼️', kw: 'duas exclamações double' },
+  { icon: '⁉️', kw: 'exclamação interrogação' },
+  { icon: '❓', kw: 'pergunta question' },
+  { icon: '❔', kw: 'pergunta branca white question' },
+  { icon: '❗', kw: 'exclamação importante' },
+  { icon: '❕', kw: 'exclamação branca white' },
+  { icon: '〰️', kw: 'ondulado wavy dash' },
+  { icon: '💯', kw: '100 cem hundred perfect' },
+  { icon: '💢', kw: 'raiva anger symbol' },
+  { icon: '💥', kw: 'colisão boom collision' },
+  { icon: '💫', kw: 'tonto dizzy estrela' },
+  { icon: '💦', kw: 'gotas suor sweat' },
+  { icon: '💨', kw: 'fumaça correndo dash' },
+  { icon: '🕳️', kw: 'buraco hole' },
+  { icon: '💤', kw: 'zzz sono sleep' },
+  // Setas
+  { icon: '⬆️', kw: 'seta cima up arrow' },
+  { icon: '↗️', kw: 'seta diagonal up right' },
+  { icon: '➡️', kw: 'seta direita right arrow' },
+  { icon: '↘️', kw: 'seta diagonal down right' },
+  { icon: '⬇️', kw: 'seta baixo down arrow' },
+  { icon: '↙️', kw: 'seta diagonal down left' },
+  { icon: '⬅️', kw: 'seta esquerda left arrow' },
+  { icon: '↖️', kw: 'seta diagonal up left' },
+  { icon: '↕️', kw: 'seta cima baixo' },
+  { icon: '↔️', kw: 'seta esquerda direita' },
+  { icon: '↪️', kw: 'seta curva right' },
+  { icon: '↩️', kw: 'seta curva left' },
+  { icon: '⤴️', kw: 'seta para cima curve' },
+  { icon: '⤵️', kw: 'seta para baixo curve' },
+  { icon: '🔃', kw: 'reciclar setas clockwise' },
+  { icon: '🔄', kw: 'setas anti horário' },
+  { icon: '🔙', kw: 'back atrás' },
+  { icon: '🔚', kw: 'end fim' },
+  { icon: '🔛', kw: 'on ligado' },
+  { icon: '🔜', kw: 'soon em breve' },
+  { icon: '🔝', kw: 'top topo' },
+  // Mídia
+  { icon: '▶️', kw: 'play tocar' },
+  { icon: '⏸️', kw: 'pausa pause' },
+  { icon: '⏯️', kw: 'play pause' },
+  { icon: '⏹️', kw: 'parar stop' },
+  { icon: '⏺️', kw: 'gravar record' },
+  { icon: '⏭️', kw: 'próximo skip next' },
+  { icon: '⏮️', kw: 'anterior skip previous' },
+  { icon: '⏩', kw: 'avançar fast forward' },
+  { icon: '⏪', kw: 'voltar fast reverse' },
+  { icon: '⏫', kw: 'subir fast up' },
+  { icon: '⏬', kw: 'descer fast down' },
+  { icon: '◀️', kw: 'voltar reverse' },
+  { icon: '🔼', kw: 'cima up button' },
+  { icon: '🔽', kw: 'baixo down button' },
+  { icon: '🎵', kw: 'nota musical' },
+  { icon: '🔀', kw: 'aleatório shuffle' },
+  { icon: '🔁', kw: 'repeat repetir' },
+  { icon: '🔂', kw: 'repetir uma vez' },
+  // Cores círculos
+  { icon: '🔴', kw: 'vermelho red círculo' },
+  { icon: '🟠', kw: 'laranja orange círculo' },
+  { icon: '🟡', kw: 'amarelo yellow círculo' },
+  { icon: '🟢', kw: 'verde green círculo' },
+  { icon: '🔵', kw: 'azul blue círculo' },
+  { icon: '🟣', kw: 'roxo purple círculo' },
+  { icon: '⚫', kw: 'preto black círculo' },
+  { icon: '⚪', kw: 'branco white círculo' },
+  { icon: '🟤', kw: 'marrom brown círculo' },
+  { icon: '🟥', kw: 'vermelho quadrado red' },
+  { icon: '🟧', kw: 'laranja quadrado orange' },
+  { icon: '🟨', kw: 'amarelo quadrado yellow' },
+  { icon: '🟩', kw: 'verde quadrado green' },
+  { icon: '🟦', kw: 'azul quadrado blue' },
+  { icon: '🟪', kw: 'roxo quadrado purple' },
+  { icon: '🟫', kw: 'marrom quadrado brown' },
+  { icon: '⬛', kw: 'preto quadrado large' },
+  { icon: '⬜', kw: 'branco quadrado large' },
+  { icon: '🔶', kw: 'losango laranja diamond' },
+  { icon: '🔷', kw: 'losango azul diamond' },
+  { icon: '🔸', kw: 'losango pequeno laranja' },
+  { icon: '🔹', kw: 'losango pequeno azul' },
+  { icon: '🔺', kw: 'triângulo vermelho up' },
+  { icon: '🔻', kw: 'triângulo vermelho down' },
+  // Outros
+  { icon: '🎁', kw: 'presente gift' },
+  { icon: '🎈', kw: 'balão balloon' },
+  { icon: '🎉', kw: 'festa party popper' },
+  { icon: '🎊', kw: 'confete confetti ball' },
+  { icon: '🎏', kw: 'carpa flag carp streamer' },
+  { icon: '🎀', kw: 'laço ribbon' },
+  { icon: '🪄', kw: 'varinha mágica magic wand' },
+  { icon: '🪅', kw: 'piñata' },
+  { icon: '🎎', kw: 'bonecas japonesas dolls' },
+  { icon: '🏮', kw: 'lanterna red lantern' },
+  { icon: '🎐', kw: 'sino vento wind chime' },
+  { icon: '🧧', kw: 'envelope vermelho red' },
+  { icon: '🎭', kw: 'máscaras teatro' },
+  { icon: '🪪', kw: 'identidade id card' },
+  { icon: '🆔', kw: 'id identification' },
+  { icon: '🪑', kw: 'cadeira chair' },
+  { icon: '🛋️', kw: 'sofá couch' },
+  { icon: '🛌', kw: 'pessoa cama bed' },
+  { icon: '🛏️', kw: 'cama bed' },
+  { icon: '🚪', kw: 'porta door' },
+  { icon: '🪟', kw: 'janela window' },
+  { icon: '🪞', kw: 'espelho mirror' },
+  { icon: '🛁', kw: 'banheira bath' },
+  { icon: '🛀', kw: 'pessoa banho person bath' },
+  { icon: '🚿', kw: 'chuveiro shower' },
+  { icon: '🚽', kw: 'vaso sanitário toilet' },
+  { icon: '🪠', kw: 'desentupidor plunger' },
+  { icon: '🚰', kw: 'água potável potable' },
+  { icon: '🪥', kw: 'escova dentes toothbrush' },
+  { icon: '🧴', kw: 'frasco shampoo' },
+  { icon: '🧷', kw: 'safety pin alfinete' },
+  { icon: '🧹', kw: 'vassoura broom limpeza' },
+  { icon: '🧺', kw: 'cesto basket' },
+  { icon: '🧻', kw: 'papel higiênico toilet paper' },
+  { icon: '🧼', kw: 'sabonete soap' },
+  { icon: '🧽', kw: 'esponja sponge' },
+  { icon: '🧯', kw: 'extintor fire extinguisher' },
+  { icon: '🛒', kw: 'carrinho compras shopping cart' },
+  { icon: '🛍️', kw: 'sacolas shopping bags' },
+  // Bandeiras países (mais usadas)
+  { icon: '🏳️', kw: 'bandeira branca white flag' },
+  { icon: '🏴', kw: 'bandeira preta black flag' },
+  { icon: '🏁', kw: 'bandeira chegada checkered flag' },
+  { icon: '🚩', kw: 'bandeira triangular triangular flag' },
+  { icon: '🏳️‍🌈', kw: 'bandeira lgbt rainbow' },
+  { icon: '🏴‍☠️', kw: 'pirata pirate flag' },
+  { icon: '🇧🇷', kw: 'brasil brazil bandeira' },
+  { icon: '🇺🇸', kw: 'estados unidos usa american' },
+  { icon: '🇬🇧', kw: 'reino unido uk britain' },
+  { icon: '🇨🇦', kw: 'canadá canada' },
+  { icon: '🇫🇷', kw: 'frança france français' },
+  { icon: '🇩🇪', kw: 'alemanha germany deutsch' },
+  { icon: '🇮🇹', kw: 'itália italy italiano' },
+  { icon: '🇪🇸', kw: 'espanha spain español' },
+  { icon: '🇵🇹', kw: 'portugal português' },
+  { icon: '🇯🇵', kw: 'japão japan nihon' },
+  { icon: '🇨🇳', kw: 'china chinês' },
+  { icon: '🇰🇷', kw: 'coreia sul south korea' },
+  { icon: '🇮🇳', kw: 'índia india' },
+  { icon: '🇲🇽', kw: 'méxico mexico' },
+  { icon: '🇦🇷', kw: 'argentina' },
+  { icon: '🇨🇱', kw: 'chile' },
+  { icon: '🇨🇴', kw: 'colômbia colombia' },
+  { icon: '🇵🇪', kw: 'peru' },
+  { icon: '🇺🇾', kw: 'uruguai uruguay' },
+  { icon: '🇵🇾', kw: 'paraguai paraguay' },
+  { icon: '🇧🇴', kw: 'bolívia bolivia' },
+  { icon: '🇻🇪', kw: 'venezuela' },
+  { icon: '🇨🇺', kw: 'cuba' },
+  { icon: '🇪🇨', kw: 'equador ecuador' },
+  { icon: '🇸🇪', kw: 'suécia sweden' },
+  { icon: '🇳🇴', kw: 'noruega norway' },
+  { icon: '🇩🇰', kw: 'dinamarca denmark' },
+  { icon: '🇫🇮', kw: 'finlândia finland' },
+  { icon: '🇮🇱', kw: 'israel' },
+  { icon: '🇪🇬', kw: 'egito egypt' },
+  { icon: '🇿🇦', kw: 'áfrica do sul south africa' },
+  { icon: '🇦🇺', kw: 'austrália australia' },
+  { icon: '🇳🇿', kw: 'nova zelândia new zealand' },
+  { icon: '🇷🇺', kw: 'rússia russia' },
+  { icon: '🇺🇦', kw: 'ucrânia ukraine' },
+  { icon: '🇹🇷', kw: 'turquia turkey' },
+  { icon: '🇬🇷', kw: 'grécia greece' },
+  { icon: '🇳🇱', kw: 'holanda netherlands' },
+  { icon: '🇧🇪', kw: 'bélgica belgium' },
+  { icon: '🇨🇭', kw: 'suíça switzerland' },
+  { icon: '🇦🇹', kw: 'áustria austria' },
+  { icon: '🇮🇪', kw: 'irlanda ireland' },
+  { icon: '🇵🇱', kw: 'polônia poland' },
+];
+
 const state = {
   tasks: [],
   categories: [],
@@ -3047,18 +4669,32 @@ const state = {
   editingTaskPriority: 'p4',
   editingTaskComments: [],
   selectedColor: '#dc2626',
+  selectedIcon: '📌',
   selectedTasks: new Set(),
   history: [],
   historyIndex: -1,
   karma: { points: 0, level: 0, completedTotal: 0 },
   pomodoro: {
+    mode: 'focus',
     duration: 25 * 60,
     remaining: 25 * 60,
     running: false,
     interval: null,
-    mode: 'focus',
+    // Configurable settings
+    focusDuration: 25,
+    shortBreakDuration: 5,
+    longBreakDuration: 15,
+    pomodorosUntilLongBreak: 4,
+    autoCycle: false,
+    autoStart: false,
+    soundEnabled: true,
+    dailyGoal: 0,
+    // Stats
     completedToday: 0,
     completedTotal: 0,
+    cyclePosition: 0,
+    streak: 0,
+    streakLastDate: null,
     lastDate: null,
   },
   selectedCalendarDate: null,
@@ -3101,10 +4737,22 @@ function persistTasks() { save(STORAGE_KEYS.TASKS, state.tasks); }
 function persistCategories() { save(STORAGE_KEYS.CATEGORIES, state.categories); }
 function persistSettings() { save(STORAGE_KEYS.SETTINGS, state.settings); }
 function persistPomodoro() {
+  const p = state.pomodoro;
   save(STORAGE_KEYS.POMODORO, {
-    completedToday: state.pomodoro.completedToday,
-    completedTotal: state.pomodoro.completedTotal,
-    lastDate: state.pomodoro.lastDate,
+    focusDuration: p.focusDuration,
+    shortBreakDuration: p.shortBreakDuration,
+    longBreakDuration: p.longBreakDuration,
+    pomodorosUntilLongBreak: p.pomodorosUntilLongBreak,
+    autoCycle: p.autoCycle,
+    autoStart: p.autoStart,
+    soundEnabled: p.soundEnabled,
+    dailyGoal: p.dailyGoal,
+    completedToday: p.completedToday,
+    completedTotal: p.completedTotal,
+    cyclePosition: p.cyclePosition,
+    streak: p.streak,
+    streakLastDate: p.streakLastDate,
+    lastDate: p.lastDate,
   });
 }
 function persistStreak() { save(STORAGE_KEYS.STREAK, state.streak); }
@@ -4466,9 +6114,10 @@ function saveTaskFromModal() {
 
 function openCategoryModal(cat = null) {
   state.editingCategoryId = cat ? cat.id : null;
-  state.selectedColor = cat ? cat.color : COLORS[0];
+  state.selectedColor = cat ? safeColor(cat.color) : COLORS[0];
+  state.selectedIcon = cat ? (cat.icon || '📌') : '📌';
   document.getElementById('categoryName').value = cat ? cat.name : '';
-  document.getElementById('categoryIcon').value = cat ? cat.icon : '';
+  document.getElementById('categoryIconDisplay').textContent = state.selectedIcon;
 
   const picker = document.getElementById('colorPicker');
   picker.innerHTML = COLORS.map(c => `
@@ -4481,15 +6130,94 @@ function openCategoryModal(cat = null) {
     });
   });
 
+  setupIconPicker('category', icon => { state.selectedIcon = icon; });
+
   openModal('categoryModal');
+}
+
+function setupIconPicker(prefix, onSelect) {
+  const searchMap = { inlineCategory: 'inlineIconSearch', category: 'modalIconSearch' };
+  const gridMap = { inlineCategory: 'inlineIconGrid', category: 'modalIconGrid' };
+  const btn = document.getElementById(prefix + 'IconBtn');
+  const panel = document.getElementById(prefix + 'IconPanel');
+  const search = document.getElementById(searchMap[prefix]);
+  const grid = document.getElementById(gridMap[prefix]);
+  const display = document.getElementById(prefix + 'IconDisplay');
+  if (!btn || !panel || !search || !grid || !display) return;
+  if (btn.dataset.bound) return;
+  btn.dataset.bound = '1';
+
+  const wrapper = btn.parentElement;
+
+  function renderGrid(query) {
+    const q = (query || '').toLowerCase().trim();
+    const filtered = q
+      ? ICON_LIBRARY.filter(x => x.icon.includes(q) || x.kw.toLowerCase().includes(q))
+      : ICON_LIBRARY;
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="icon-picker-empty">Nenhum ícone encontrado</div>';
+      return;
+    }
+    const current = display.textContent;
+    grid.innerHTML = filtered.map(x => `<button type="button" class="icon-option ${x.icon === current ? 'selected' : ''}" data-icon="${escapeHtml(x.icon)}" title="${escapeHtml(x.kw.split(' ')[0])}">${x.icon}</button>`).join('');
+    grid.querySelectorAll('.icon-option').forEach(el => {
+      el.addEventListener('click', () => {
+        const ic = el.dataset.icon;
+        display.textContent = ic;
+        if (onSelect) onSelect(ic);
+        panel.style.display = 'none';
+        wrapper.classList.remove('open');
+      });
+    });
+  }
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = panel.style.display === 'block';
+    if (isOpen) {
+      panel.style.display = 'none';
+      wrapper.classList.remove('open');
+    } else {
+      // Close any other open picker
+      document.querySelectorAll('.icon-picker.open').forEach(el => {
+        el.classList.remove('open');
+        const p = el.querySelector('.icon-picker-panel');
+        if (p) p.style.display = 'none';
+      });
+      panel.style.display = 'block';
+      wrapper.classList.add('open');
+      search.value = '';
+      renderGrid('');
+      setTimeout(() => search.focus(), 50);
+    }
+  });
+
+  search.addEventListener('input', () => renderGrid(search.value));
+  search.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      panel.style.display = 'none';
+      wrapper.classList.remove('open');
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', e => {
+    if (!wrapper.contains(e.target)) {
+      panel.style.display = 'none';
+      wrapper.classList.remove('open');
+    }
+  });
 }
 
 function openInlineCategoryForm(cat) {
   state.editingCategoryId = cat ? cat.id : null;
   state.selectedColor = cat ? safeColor(cat.color) : COLORS[0];
+  state.selectedIcon = cat ? (cat.icon || '📌') : '📌';
+
   document.getElementById('inlineCategoryFormTitle').textContent = cat ? 'Editar categoria' : 'Nova categoria';
   document.getElementById('inlineCategoryName').value = cat ? cat.name : '';
-  document.getElementById('inlineCategoryIcon').value = cat ? cat.icon : '';
+  document.getElementById('inlineCategoryIconDisplay').textContent = state.selectedIcon;
 
   const picker = document.getElementById('inlineColorPicker');
   picker.innerHTML = COLORS.map(c => `
@@ -4501,6 +6229,8 @@ function openInlineCategoryForm(cat) {
       picker.querySelectorAll('.color-option').forEach(o => o.classList.toggle('active', o.dataset.color === state.selectedColor));
     });
   });
+
+  setupIconPicker('inlineCategory', icon => { state.selectedIcon = icon; });
 
   document.getElementById('inlineCategoryForm').style.display = 'block';
   document.getElementById('settingsAddCategoryBtn').style.display = 'none';
@@ -4520,7 +6250,7 @@ function saveInlineCategory() {
     toast('Nome obrigatório', '', 'warning');
     return;
   }
-  const icon = document.getElementById('inlineCategoryIcon').value.trim().slice(0, 4) || '📌';
+  const icon = (state.selectedIcon || '📌').slice(0, 4);
 
   if (state.editingCategoryId) {
     const cat = state.categories.find(c => c.id === state.editingCategoryId);
@@ -4550,7 +6280,7 @@ function saveCategoryFromModal() {
     toast('Nome obrigatório', '', 'warning');
     return;
   }
-  const icon = document.getElementById('categoryIcon').value.trim().slice(0, 4) || '📌';
+  const icon = (state.selectedIcon || '📌').slice(0, 4);
 
   if (state.editingCategoryId) {
     const cat = state.categories.find(c => c.id === state.editingCategoryId);
@@ -4619,44 +6349,185 @@ function hideContextMenu() {
 }
 
 // ============== POMODORO ==============
+const POMODORO_DEFAULTS = {
+  focusDuration: 25,
+  shortBreakDuration: 5,
+  longBreakDuration: 15,
+  pomodorosUntilLongBreak: 4,
+  autoCycle: false,
+  autoStart: false,
+  soundEnabled: true,
+  dailyGoal: 0,
+};
+
+function getPomodoroDurationFor(mode) {
+  const p = state.pomodoro;
+  if (mode === 'short-break') return p.shortBreakDuration * 60;
+  if (mode === 'long-break') return p.longBreakDuration * 60;
+  return p.focusDuration * 60;
+}
+
 function checkPomodoroDate() {
   const today = todayStr();
   if (state.pomodoro.lastDate !== today) {
+    // Update streak: if last date was yesterday, increment; otherwise reset
+    if (state.pomodoro.completedToday > 0 && state.pomodoro.lastDate) {
+      // streak was tracked when day rolled
+    }
     state.pomodoro.completedToday = 0;
+    state.pomodoro.cyclePosition = 0;
     state.pomodoro.lastDate = today;
     persistPomodoro();
   }
+}
+
+function bumpPomodoroStreak() {
+  const today = todayStr();
+  if (state.pomodoro.streakLastDate === today) return;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yStr = yesterday.getFullYear() + '-' + String(yesterday.getMonth()+1).padStart(2,'0') + '-' + String(yesterday.getDate()).padStart(2,'0');
+  if (state.pomodoro.streakLastDate === yStr) {
+    state.pomodoro.streak = (state.pomodoro.streak || 0) + 1;
+  } else {
+    state.pomodoro.streak = 1;
+  }
+  state.pomodoro.streakLastDate = today;
+}
+
+function setPomodoroMode(mode, opts) {
+  opts = opts || {};
+  state.pomodoro.mode = mode;
+  state.pomodoro.duration = getPomodoroDurationFor(mode);
+  state.pomodoro.remaining = state.pomodoro.duration;
+  // Update tab UI
+  document.querySelectorAll('.pomo-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
+  // Update display class for color
+  const display = document.querySelector('.pomodoro-display');
+  if (display) {
+    display.classList.remove('mode-focus', 'mode-short-break', 'mode-long-break');
+    display.classList.add('mode-' + mode);
+  }
+  if (!opts.keepRunning) pausePomodoro();
+  updatePomodoroDisplay();
 }
 
 function updatePomodoroDisplay() {
   const m = Math.floor(state.pomodoro.remaining / 60);
   const s = state.pomodoro.remaining % 60;
   const display = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-  document.getElementById('pomodoroTime').textContent = display;
-  document.title = state.pomodoro.running ? `${display} — ${state.pomodoro.mode === 'focus' ? 'Foco' : 'Pausa'}` : 'TaskFlow — Sua Lista de Tarefas';
+  const timeEl = document.getElementById('pomodoroTime');
+  if (timeEl) timeEl.textContent = display;
 
   const statusMap = { focus: 'Foco', 'short-break': 'Pausa curta', 'long-break': 'Pausa longa' };
   const status = statusMap[state.pomodoro.mode] || 'Foco';
-  document.getElementById('pomodoroStatus').textContent = status;
+  const statusEl = document.getElementById('pomodoroStatus');
+  if (statusEl) statusEl.textContent = status;
 
+  document.title = state.pomodoro.running ? `${display} — ${status}` : 'TaskFlow — Sua Lista de Tarefas';
+
+  // Cycle indicator: "1 de 4 · próximo: pausa curta"
+  const cycleEl = document.getElementById('pomodoroCycle');
+  if (cycleEl) {
+    const p = state.pomodoro;
+    if (p.mode === 'focus') {
+      const next = (p.cyclePosition + 1) >= p.pomodorosUntilLongBreak ? '🌴 longa' : '☕ curta';
+      cycleEl.textContent = `${p.cyclePosition + 1} de ${p.pomodorosUntilLongBreak} · próximo: ${next}`;
+    } else {
+      cycleEl.textContent = `próximo: 🎯 foco`;
+    }
+  }
+
+  // Progress circle
   const circle = document.getElementById('progressCircle');
   if (circle) {
-    const total = state.pomodoro.duration;
+    const total = state.pomodoro.duration || 1;
     const elapsed = total - state.pomodoro.remaining;
-    const progress = elapsed / total;
+    const progress = Math.max(0, Math.min(1, elapsed / total));
     const circumference = 565.48;
     circle.style.strokeDashoffset = circumference * (1 - progress);
   }
 
-  document.getElementById('pomoStartBtn').textContent = state.pomodoro.running ? '⏸️ Pausar' : '▶️ Iniciar';
+  // Pulse animation when running
+  const wrapper = document.querySelector('.pomodoro-display');
+  if (wrapper) wrapper.classList.toggle('running', state.pomodoro.running);
+
+  const startBtn = document.getElementById('pomoStartBtn');
+  if (startBtn) startBtn.textContent = state.pomodoro.running ? '⏸ Pausar' : '▶ Iniciar';
+
   document.getElementById('pomoTodayCount').textContent = state.pomodoro.completedToday;
   document.getElementById('pomoTotalCount').textContent = state.pomodoro.completedTotal;
+  const streakEl = document.getElementById('pomoStreakCount');
+  if (streakEl) streakEl.textContent = state.pomodoro.streak || 0;
+
+  updatePomoGoalDisplay();
+  updatePomoQuickPresets();
+}
+
+function updatePomoGoalDisplay() {
+  const sec = document.getElementById('pomoGoalSection');
+  if (!sec) return;
+  const goal = state.pomodoro.dailyGoal || 0;
+  if (goal <= 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  const done = state.pomodoro.completedToday;
+  const pct = Math.min(100, (done / goal) * 100);
+  document.getElementById('pomoGoalText').textContent = `${done} / ${goal} pomodoros`;
+  document.getElementById('pomoGoalProgress').style.width = pct + '%';
+}
+
+function updatePomoQuickPresets() {
+  const el = document.getElementById('pomoQuickPresets');
+  if (!el) return;
+  const p = state.pomodoro;
+  let presets;
+  if (p.mode === 'focus') {
+    presets = [15, 25, 45, 60, 90];
+  } else if (p.mode === 'short-break') {
+    presets = [3, 5, 10, 15];
+  } else {
+    presets = [10, 15, 20, 30];
+  }
+  const currentMin = Math.round(p.duration / 60);
+  el.innerHTML = presets.map(m => `<button type="button" class="pill ${m === currentMin ? 'active' : ''}" data-quick-pomo="${m}">${m} min</button>`).join('');
+  el.querySelectorAll('[data-quick-pomo]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mins = parseInt(btn.dataset.quickPomo);
+      state.pomodoro.duration = mins * 60;
+      state.pomodoro.remaining = mins * 60;
+      // Also update the saved setting for this mode so it persists
+      if (p.mode === 'focus') state.pomodoro.focusDuration = mins;
+      else if (p.mode === 'short-break') state.pomodoro.shortBreakDuration = mins;
+      else state.pomodoro.longBreakDuration = mins;
+      pausePomodoro();
+      persistPomodoro();
+      syncPomodoroSettingsUI();
+      updatePomodoroDisplay();
+    });
+  });
+}
+
+function syncPomodoroSettingsUI() {
+  const p = state.pomodoro;
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el && document.activeElement !== el) el.value = val; };
+  setVal('pomoFocusDuration', p.focusDuration);
+  setVal('pomoShortDuration', p.shortBreakDuration);
+  setVal('pomoLongDuration', p.longBreakDuration);
+  setVal('pomoLongInterval', p.pomodorosUntilLongBreak);
+  setVal('pomoDailyGoal', p.dailyGoal);
+  const setChk = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
+  setChk('pomoAutoCycle', p.autoCycle);
+  setChk('pomoAutoStart', p.autoStart);
+  setChk('pomoSoundEnabled', p.soundEnabled);
 }
 
 function startPomodoro() {
   if (state.pomodoro.running) {
     pausePomodoro();
     return;
+  }
+  if (state.pomodoro.remaining <= 0) {
+    state.pomodoro.remaining = state.pomodoro.duration;
   }
   state.pomodoro.running = true;
   state.pomodoro.interval = setInterval(() => {
@@ -4672,36 +6543,94 @@ function startPomodoro() {
 
 function pausePomodoro() {
   state.pomodoro.running = false;
-  clearInterval(state.pomodoro.interval);
+  if (state.pomodoro.interval) clearInterval(state.pomodoro.interval);
+  state.pomodoro.interval = null;
   updatePomodoroDisplay();
 }
 
 function resetPomodoro() {
-  state.pomodoro.running = false;
-  clearInterval(state.pomodoro.interval);
+  pausePomodoro();
   state.pomodoro.remaining = state.pomodoro.duration;
   updatePomodoroDisplay();
 }
 
+function getNextMode() {
+  const p = state.pomodoro;
+  if (p.mode === 'focus') {
+    return (p.cyclePosition + 1) >= p.pomodorosUntilLongBreak ? 'long-break' : 'short-break';
+  }
+  return 'focus';
+}
+
+function skipPomodoro() {
+  // Move to next mode without counting completion
+  pausePomodoro();
+  const next = getNextMode();
+  if (state.pomodoro.mode === 'focus') {
+    // Skipping focus: don't count, but still advance cycle? No — only advance on actual completion
+  }
+  setPomodoroMode(next);
+}
+
 function completePomodoro() {
   pausePomodoro();
-  if (state.pomodoro.mode === 'focus') {
+  const wasMode = state.pomodoro.mode;
+  if (wasMode === 'focus') {
     state.pomodoro.completedToday++;
     state.pomodoro.completedTotal++;
-    persistPomodoro();
+    state.pomodoro.cyclePosition++;
+    bumpPomodoroStreak();
   }
-  playSound('pomo');
+  persistPomodoro();
+  if (state.pomodoro.soundEnabled) playSound('pomo');
   fireConfetti();
-  const completeTitle = state.pomodoro.mode === 'focus' ? '🎯 Pomodoro completo!' : '☕ Pausa terminada';
-  toast(completeTitle, 'Bom trabalho!', 'success');
-  state.pomodoro.remaining = state.pomodoro.duration;
-  updatePomodoroDisplay();
+
+  // Determine next mode and advance cycle counter for long breaks
+  let nextMode;
+  if (wasMode === 'focus') {
+    if (state.pomodoro.cyclePosition >= state.pomodoro.pomodorosUntilLongBreak) {
+      nextMode = 'long-break';
+      state.pomodoro.cyclePosition = 0;
+    } else {
+      nextMode = 'short-break';
+    }
+  } else {
+    nextMode = 'focus';
+  }
+
+  const titleMap = { focus: '🎯 Pomodoro completo!', 'short-break': '☕ Pausa terminada', 'long-break': '🌴 Pausa longa terminada' };
+  const subMap = {
+    focus: state.pomodoro.dailyGoal > 0
+      ? `${state.pomodoro.completedToday}/${state.pomodoro.dailyGoal} hoje · próximo: ${nextMode === 'long-break' ? 'pausa longa' : 'pausa curta'}`
+      : `Próximo: ${nextMode === 'long-break' ? 'pausa longa' : 'pausa curta'}`,
+    'short-break': 'Próximo: foco',
+    'long-break': 'Próximo: foco — novo ciclo!',
+  };
+  toast(titleMap[wasMode], subMap[wasMode], 'success');
 
   if ('Notification' in window && Notification.permission === 'granted') {
-    new Notification('TaskFlow', {
-      body: state.pomodoro.mode === 'focus' ? 'Pomodoro completo!' : 'Pausa terminada!',
+    new Notification('TaskFlow — ' + titleMap[wasMode], {
+      body: subMap[wasMode],
       icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🍅</text></svg>',
     });
+  }
+
+  // Goal reached celebration
+  if (wasMode === 'focus' && state.pomodoro.dailyGoal > 0 && state.pomodoro.completedToday === state.pomodoro.dailyGoal) {
+    setTimeout(() => {
+      toast('🏆 Meta diária alcançada!', `${state.pomodoro.dailyGoal} pomodoros — parabéns!`, 'success');
+      fireConfetti();
+    }, 800);
+  }
+
+  if (state.pomodoro.autoCycle) {
+    setPomodoroMode(nextMode);
+    if (state.pomodoro.autoStart) {
+      setTimeout(() => startPomodoro(), 1000);
+    }
+  } else {
+    state.pomodoro.remaining = state.pomodoro.duration;
+    updatePomodoroDisplay();
   }
 }
 
@@ -4929,7 +6858,9 @@ function init() {
   checkPomodoroDate();
   checkStreakBroken();
   render();
-  updatePomodoroDisplay();
+  // Initialize Pomodoro display state
+  setPomodoroMode(state.pomodoro.mode || 'focus');
+  syncPomodoroSettingsUI();
 
   // Event listeners
   setupEventListeners();
@@ -5474,20 +7405,110 @@ function setupEventListeners() {
   });
 
   // Pomodoro
-  document.getElementById('pomodoroBtn').addEventListener('click', () => openModal('pomodoroModal'));
+  document.getElementById('pomodoroBtn').addEventListener('click', () => {
+    openModal('pomodoroModal');
+    syncPomodoroSettingsUI();
+    updatePomodoroDisplay();
+  });
   document.getElementById('pomoStartBtn').addEventListener('click', startPomodoro);
   document.getElementById('pomoResetBtn').addEventListener('click', resetPomodoro);
-  document.querySelectorAll('[data-pomo]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-pomo]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const mins = parseInt(btn.dataset.pomo);
-      state.pomodoro.duration = mins * 60;
-      state.pomodoro.remaining = mins * 60;
-      // 5 min is short break, 15 min is long break, 25+ is focus
-      state.pomodoro.mode = mins === 5 ? 'short-break' : (mins === 15 ? 'long-break' : 'focus');
-      pausePomodoro();
+  document.getElementById('pomoSkipBtn').addEventListener('click', () => {
+    if (state.pomodoro.running || state.pomodoro.remaining < state.pomodoro.duration) {
+      confirmDialog('Pular sessão?', 'O progresso atual será descartado.', () => skipPomodoro());
+    } else {
+      skipPomodoro();
+    }
+  });
+
+  // Mode tabs
+  document.querySelectorAll('.pomo-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const mode = tab.dataset.mode;
+      if (state.pomodoro.running) {
+        confirmDialog('Trocar de modo?', 'O timer será pausado e resetado.', () => setPomodoroMode(mode));
+      } else {
+        setPomodoroMode(mode);
+      }
+    });
+  });
+
+  // Custom time input
+  const applyCustom = () => {
+    const input = document.getElementById('pomoCustomMin');
+    const mins = parseInt(input.value);
+    if (!mins || mins < 1 || mins > 600) {
+      toast('Tempo inválido', 'Use entre 1 e 600 minutos', 'warning');
+      return;
+    }
+    state.pomodoro.duration = mins * 60;
+    state.pomodoro.remaining = mins * 60;
+    // Update mode-specific duration
+    if (state.pomodoro.mode === 'focus') state.pomodoro.focusDuration = mins;
+    else if (state.pomodoro.mode === 'short-break') state.pomodoro.shortBreakDuration = mins;
+    else state.pomodoro.longBreakDuration = mins;
+    pausePomodoro();
+    persistPomodoro();
+    syncPomodoroSettingsUI();
+    updatePomodoroDisplay();
+    input.value = '';
+    toast('Tempo aplicado', `${mins} minutos`, 'success');
+  };
+  document.getElementById('pomoCustomApply').addEventListener('click', applyCustom);
+  document.getElementById('pomoCustomMin').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); applyCustom(); }
+  });
+
+  // Settings inputs - use change to commit (avoids re-rendering while typing)
+  const bindNumber = (id, key, min, max) => {
+    const el = document.getElementById(id);
+    el.addEventListener('change', () => {
+      let v = parseInt(el.value);
+      if (isNaN(v)) v = POMODORO_DEFAULTS[key];
+      v = Math.max(min, Math.min(max, v));
+      el.value = v;
+      state.pomodoro[key] = v;
+      // If we changed the duration of the active mode, refresh
+      const mode = state.pomodoro.mode;
+      if ((key === 'focusDuration' && mode === 'focus') ||
+          (key === 'shortBreakDuration' && mode === 'short-break') ||
+          (key === 'longBreakDuration' && mode === 'long-break')) {
+        if (!state.pomodoro.running) {
+          state.pomodoro.duration = v * 60;
+          state.pomodoro.remaining = v * 60;
+        }
+      }
+      persistPomodoro();
       updatePomodoroDisplay();
+    });
+  };
+  bindNumber('pomoFocusDuration', 'focusDuration', 1, 120);
+  bindNumber('pomoShortDuration', 'shortBreakDuration', 1, 60);
+  bindNumber('pomoLongDuration', 'longBreakDuration', 1, 120);
+  bindNumber('pomoLongInterval', 'pomodorosUntilLongBreak', 2, 12);
+  bindNumber('pomoDailyGoal', 'dailyGoal', 0, 50);
+
+  const bindToggle = (id, key) => {
+    document.getElementById(id).addEventListener('change', e => {
+      state.pomodoro[key] = e.target.checked;
+      persistPomodoro();
+    });
+  };
+  bindToggle('pomoAutoCycle', 'autoCycle');
+  bindToggle('pomoAutoStart', 'autoStart');
+  bindToggle('pomoSoundEnabled', 'soundEnabled');
+
+  // Reset settings
+  document.getElementById('pomoResetSettings').addEventListener('click', () => {
+    confirmDialog('Restaurar padrões?', 'Os tempos e configurações voltam ao padrão.', () => {
+      Object.assign(state.pomodoro, POMODORO_DEFAULTS);
+      // Refresh duration based on current mode
+      state.pomodoro.duration = getPomodoroDurationFor(state.pomodoro.mode);
+      state.pomodoro.remaining = state.pomodoro.duration;
+      pausePomodoro();
+      persistPomodoro();
+      syncPomodoroSettingsUI();
+      updatePomodoroDisplay();
+      toast('Padrões restaurados', '', 'info');
     });
   });
 
