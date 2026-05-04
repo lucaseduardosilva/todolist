@@ -6317,7 +6317,7 @@ function confirmDialog(title, message, callback, icon = '⚠️') {
 }
 
 // ============== CONTEXT MENU ==============
-function showContextMenu(x, y, items) {
+function showContextMenu(x, y, items, trigger) {
   const menu = document.getElementById('contextMenu');
   menu.innerHTML = items.map(item => {
     if (item.divider) return '<div class="context-menu-divider"></div>';
@@ -6327,25 +6327,32 @@ function showContextMenu(x, y, items) {
   let actionIdx = 0;
   menu.querySelectorAll('[data-action]').forEach(btn => {
     const item = items.filter(i => !i.divider)[actionIdx++];
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
       hideContextMenu();
       item.action();
     });
   });
 
   menu.style.display = 'block';
+  menu.dataset.trigger = trigger || '';
   const rect = menu.getBoundingClientRect();
   let left = x;
   let top = y;
   if (left + rect.width > window.innerWidth) left = window.innerWidth - rect.width - 10;
   if (top + rect.height > window.innerHeight) top = window.innerHeight - rect.height - 10;
+  if (left < 8) left = 8;
+  if (top < 8) top = 8;
   menu.style.left = left + 'px';
   menu.style.top = top + 'px';
   menu.classList.add('show');
 }
 
 function hideContextMenu() {
-  document.getElementById('contextMenu').classList.remove('show');
+  const menu = document.getElementById('contextMenu');
+  menu.classList.remove('show');
+  menu.style.display = '';
+  menu.dataset.trigger = '';
 }
 
 // ============== POMODORO ==============
@@ -6970,13 +6977,14 @@ function bulkDelete() {
   });
 }
 
-function bulkPriority() {
+function bulkPriority(e) {
+  if (e) e.stopPropagation();
   showContextMenu(window.innerWidth / 2 - 90, window.innerHeight / 2 - 100, [
     { icon: '🚩', label: 'P1 — Urgente', action: () => bulkSetPriority('p1') },
     { icon: '🟧', label: 'P2 — Alta', action: () => bulkSetPriority('p2') },
     { icon: '🟦', label: 'P3 — Média', action: () => bulkSetPriority('p3') },
     { icon: '⚪', label: 'P4 — Sem prioridade', action: () => bulkSetPriority('p4') },
-  ]);
+  ], 'bulkPriority');
 }
 
 function bulkSetPriority(p) {
@@ -7697,6 +7705,12 @@ function setupEventListeners() {
 
   // More actions
   document.getElementById('moreActionsBtn').addEventListener('click', e => {
+    e.stopPropagation();
+    const menu = document.getElementById('contextMenu');
+    if (menu.classList.contains('show') && menu.dataset.trigger === 'moreActions') {
+      hideContextMenu();
+      return;
+    }
     showContextMenu(e.clientX, e.clientY, [
       { icon: '☑️', label: 'Selecionar todas (modo lote)', action: () => {
         getFilteredTasks().forEach(t => state.selectedTasks.add(t.id));
@@ -7717,7 +7731,7 @@ function setupEventListeners() {
       { divider: true },
       { icon: '🧹', label: 'Limpar concluídas', action: () => document.getElementById('clearCompletedBtn').click() },
       { icon: '📤', label: 'Exportar', action: exportData },
-    ]);
+    ], 'moreActions');
   });
 
   // Hide context menu on outside click
